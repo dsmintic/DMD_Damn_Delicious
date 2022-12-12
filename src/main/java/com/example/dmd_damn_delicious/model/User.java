@@ -1,4 +1,4 @@
-package com.example.dmd_damn_delicious.user;
+package com.example.dmd_damn_delicious.model;
 
 public class User {
 
@@ -13,8 +13,6 @@ public class User {
     private String lastName;
     private int age2;
     private String firstName;
-
-
     private String proba53;
 
 
