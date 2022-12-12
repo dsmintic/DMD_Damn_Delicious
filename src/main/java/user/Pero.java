@@ -4,4 +4,5 @@ public class Pero {
 
     int id;
     private String name;
+    int lastOne;
 }
