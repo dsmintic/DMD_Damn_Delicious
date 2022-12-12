@@ -1,4 +1,4 @@
-package user;
+package com.example.dmd_damn_delicious.user;
 
 public class User {
 
@@ -9,6 +9,8 @@ public class User {
     private String name;
 
     private int phoneNumber;
+
+    private String lastName;
 
 
 }
