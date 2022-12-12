@@ -15,5 +15,8 @@ public class User {
     private String firstName;
 
 
+    private String proba53;
+
+
 }
 
