@@ -1,9 +1,8 @@
 package com.example.dmd_damn_delicious.model;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -25,7 +24,7 @@ public class Recipe {
     @NotEmpty(message = "Title can't be empty.")
     @Column (name = "titles")
     @NotNull
-    @Size (min = 3, max = 100, message = "Title should be between 3 and 100.")
+    @Size(min = 3, max = 100, message = "Title should be between 3 and 100.")
     private String title;
 
     @NotEmpty (message = "Summary can't be empty.")
