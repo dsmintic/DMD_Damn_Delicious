@@ -11,6 +11,8 @@ public class User {
     private int phoneNumber;
 
     private String lastName;
+    private int age2;
+    private String firstName;
 
 
 }
