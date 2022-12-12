@@ -1,4 +1,4 @@
 package com.example.dmd_damn_delicious.model;
 
-public class Ingredients {
+public class Rating {
 }
