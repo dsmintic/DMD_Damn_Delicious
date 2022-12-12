@@ -6,6 +6,8 @@ public class User {
     private String memo;
     private int number;
 
+    private int phoneNumber;
+
 
 }
 
