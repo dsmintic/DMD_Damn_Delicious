@@ -1,9 +1,9 @@
 package com.example.dmd_damn_delicious.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
