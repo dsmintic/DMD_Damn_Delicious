@@ -6,6 +6,7 @@ public class User {
     private int age;
     private String memo;
     private int number;
+    private String name;
 
 
 }
