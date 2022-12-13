@@ -25,18 +25,18 @@ public class Recipe {
 
 
     @NotEmpty(message = "Title can't be empty.")
-    @Column (name = "titles")
+    @Column (name = "title")
     @NotNull
     @Size(min = 3, max = 100, message = "Title should be between 3 and 100.")
     private String title;
 
     @NotEmpty (message = "Summary can't be empty.")
-    @Column  (name = "summaries")
+    @Column  (name = "summary")
     @NotNull
     private String summary;
 
     @NotEmpty (message = "Content can't be empty.")
-    @Column  (name = "contents")
+    @Column  (name = "content")
     @NotNull
     private String content;
 
