@@ -47,7 +47,7 @@ public class Recipe {
 
     @Temporal(TemporalType.TIMESTAMP) // pitati Denisa za update
     @CreationTimestamp
-   @Column (name = "update_date", nullable = false, updatable = true)
+    @Column (name = "update_date", nullable = false, updatable = true)
     private Date updateDate;
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
@@ -73,6 +73,30 @@ public class Recipe {
     private Set<Ingredient> ingredients = new HashSet<>();
 
     public Recipe() {
+    }
+
+    public Recipe(String title, String summary, String content, User user, Set<Ingredient> ingredients) {
+        this.title = title;
+        this.summary = summary;
+        this.content = content;
+        this.user = user;
+        this.ingredients = ingredients;
+    }
+
+    public Collection<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(Collection<Rating> ratings) {
+        this.ratings = ratings;
+    }
+
+    public Set<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 
     public Long getId() {

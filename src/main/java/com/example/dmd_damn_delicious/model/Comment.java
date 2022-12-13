@@ -44,6 +44,7 @@ public class Comment {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+
     public User getUser() {
         return user;
     }
@@ -55,6 +56,8 @@ public class Comment {
     @ManyToOne(optional = false)
     @JoinColumn(name = "recipe_id", nullable = false)
     private Recipe recipe;
+
+
 
     public Recipe getRecipe() {
         return recipe;
