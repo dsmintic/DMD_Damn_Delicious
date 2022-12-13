@@ -44,6 +44,8 @@ public class User {
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     private Set<Recipe> recipes = new LinkedHashSet<>();
 
+    private String test;
+
     public Set<Recipe> getRecipes() {
         return recipes;
     }
