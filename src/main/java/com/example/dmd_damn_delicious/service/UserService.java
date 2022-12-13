@@ -13,7 +13,8 @@ import java.util.Optional;
 
 @Service
 public interface UserService {
-    Optional<User> findByUsername(String username);
+
+    List<User> getUserByUsername (String username);
 
 //    User saveNewUser(User user) throws RoleNotFoundException;
 
@@ -23,4 +24,6 @@ public interface UserService {
 
     User saveUser(User user);
 
+
+    void deletePersonById(long id);
 }
