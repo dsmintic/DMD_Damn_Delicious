@@ -45,7 +45,7 @@ public class Recipe {
 
     @Temporal(TemporalType.TIMESTAMP) // pitati Denisa za update
     @CreationTimestamp
-    @Column
+   @Column (name = "update_date", nullable = false, updatable = true)
     private Date updateDate;
 
     @OneToMany(mappedBy = "recipes", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)//provjeriti da li je množina
