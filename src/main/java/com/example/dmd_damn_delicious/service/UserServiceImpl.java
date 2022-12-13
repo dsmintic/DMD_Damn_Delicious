@@ -3,11 +3,13 @@ package com.example.dmd_damn_delicious.service;
 import com.example.dmd_damn_delicious.model.User;
 import com.example.dmd_damn_delicious.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.management.relation.RoleNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
