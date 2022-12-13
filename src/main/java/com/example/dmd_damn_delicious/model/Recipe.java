@@ -25,18 +25,18 @@ public class Recipe {
 
 
     @NotEmpty(message = "Title can't be empty.")
-    @Column (name = "titles")
+    @Column (name = "title")
     @NotNull
     @Size(min = 3, max = 100, message = "Title should be between 3 and 100.")
     private String title;
 
     @NotEmpty (message = "Summary can't be empty.")
-    @Column  (name = "summaries")
+    @Column  (name = "summary")
     @NotNull
     private String summary;
 
     @NotEmpty (message = "Content can't be empty.")
-    @Column  (name = "contents")
+    @Column  (name = "content")
     @NotNull
     private String content;
 
@@ -47,7 +47,7 @@ public class Recipe {
 
     @Temporal(TemporalType.TIMESTAMP) // pitati Denisa za update
     @CreationTimestamp
-   @Column (name = "update_date", nullable = false, updatable = true)
+    @Column (name = "update_date", nullable = false, updatable = true)
     private Date updateDate;
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
@@ -73,6 +73,30 @@ public class Recipe {
     private Set<Ingredient> ingredients = new HashSet<>();
 
     public Recipe() {
+    }
+
+    public Recipe(String title, String summary, String content, User user, Set<Ingredient> ingredients) {
+        this.title = title;
+        this.summary = summary;
+        this.content = content;
+        this.user = user;
+        this.ingredients = ingredients;
+    }
+
+    public Collection<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(Collection<Rating> ratings) {
+        this.ratings = ratings;
+    }
+
+    public Set<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 
     public Long getId() {
