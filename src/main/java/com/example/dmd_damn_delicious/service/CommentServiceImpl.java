@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -40,5 +41,15 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public Optional<Comment> getById(long id) {
         return commentRepository.findById(id);
+    }
+
+    @Override
+    public List<Comment> getAllComments() {
+        return commentRepository.findAll();
+    }
+
+    @Override
+    public Comment getCommentById(long id) {
+        return commentRepository.findById(id).orElse(null);
     }
 }

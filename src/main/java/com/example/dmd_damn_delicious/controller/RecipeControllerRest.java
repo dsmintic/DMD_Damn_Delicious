@@ -60,7 +60,7 @@ public class RecipeControllerRest {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-//
+
     @PutMapping("/recipes/{id}") // PUT in REST API
     public ResponseEntity<Recipe> updateRecipeById(@PathVariable("id") long id, @RequestBody Recipe recipe) {
         Recipe recipe1 = recipeService.getRecipeById(id);
@@ -73,9 +73,9 @@ public class RecipeControllerRest {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-//
+
     @DeleteMapping ("/recipes/{id}")
-    public ResponseEntity<HttpStatus> deleteDepartment(@PathVariable("id") long id){
+    public ResponseEntity<HttpStatus> deleteRecipe (@PathVariable("id") long id){
         try {
             recipeService.deleteRecipeById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

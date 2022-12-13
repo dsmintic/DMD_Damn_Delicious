@@ -70,8 +70,10 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(String text) {
+    public Comment(String text, User user, Recipe recipe) {
         this.text = text;
+        this.user = user;
+        this.recipe = recipe;
     }
 
     public String getText() {
