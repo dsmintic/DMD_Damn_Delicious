@@ -79,4 +79,14 @@ public class UserControllerRest {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @DeleteMapping ("/users/{id}")
+    public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") long id){
+        try {
+            userService.deletePersonById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

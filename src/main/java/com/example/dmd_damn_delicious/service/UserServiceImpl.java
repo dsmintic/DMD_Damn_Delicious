@@ -50,6 +50,11 @@ public class UserServiceImpl implements UserService{
         return this.userRepository.save(user);
     }
 
+    @Override
+    public void deletePersonById(long id) {
+        userRepository.deleteById(id);
+    }
+
 
 //    @Override
 //    public User saveNewUser(User user) throws RoleNotFoundException {
