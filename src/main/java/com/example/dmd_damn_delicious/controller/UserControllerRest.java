@@ -55,4 +55,28 @@ public class UserControllerRest {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/users/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable("id") long id) {
+        //method to return tutorial by id from database
+        User user = userService.getUserByID(id);
+
+        if(user != null) {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PutMapping("/users/{id}") // PUT in REST API
+    public ResponseEntity<User> updateUser(@PathVariable("id") long id, @RequestBody User user) {
+        User user1 = userService.getUserByID(id);
+        if(user1 != null ) {
+            user1.setUsername(user.getUsername());
+            user1.setPassword(user.getPassword());
+            user1.setRole(user.isRole());
+            return new ResponseEntity<>(userService.saveUser(user1), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
 }
