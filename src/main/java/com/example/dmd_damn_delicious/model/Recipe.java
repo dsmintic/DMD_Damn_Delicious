@@ -1,12 +1,13 @@
 package com.example.dmd_damn_delicious.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -49,7 +50,7 @@ public class Recipe {
    @Column (name = "update_date", nullable = false, updatable = true)
     private Date updateDate;
 
-    @OneToMany(mappedBy = "recipes", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)//provjeriti da li je množina
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private Collection<Comment> comments;
 
     @ManyToOne(optional = false)
@@ -64,10 +65,10 @@ public class Recipe {
         this.user = user;
     }
 
-    @OneToMany(mappedBy = "ratings", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)//provjeriti da li je množina
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private Collection<Rating> ratings;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "ingredients")
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonIgnore
     private Set<Ingredient> ingredients = new HashSet<>();
 
