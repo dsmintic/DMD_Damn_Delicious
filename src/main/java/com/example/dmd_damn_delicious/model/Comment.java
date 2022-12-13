@@ -1,10 +1,11 @@
 package com.example.dmd_damn_delicious.model;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+
 import java.util.Date;
 
 @Entity
@@ -52,7 +53,7 @@ public class Comment {
     }
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "post_id", nullable = false)
+    @JoinColumn(name = "recipe_id", nullable = false)
     private Recipe recipe;
 
     public Recipe getRecipe() {
