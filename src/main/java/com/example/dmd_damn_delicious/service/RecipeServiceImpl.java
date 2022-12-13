@@ -1,4 +1,7 @@
 package com.example.dmd_damn_delicious.service;
 
-public class RecipeServiceImpl {
+import org.springframework.stereotype.Service;
+
+@Service
+public class RecipeServiceImpl implements RecipeService{
 }
