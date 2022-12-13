@@ -27,8 +27,8 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public void saveComment(Comment comment) {
-        this.commentRepository.save(comment);
+    public Comment saveComment(Comment comment) {
+        return this.commentRepository.save(comment);
     }
 
     @Override
@@ -36,10 +36,6 @@ public class CommentServiceImpl implements CommentService{
         this.commentRepository.deleteById(id);
     }
 
-    @Override
-    public void save(Comment comment) {
-        commentRepository.save(comment);
-    }
 
     @Override
     public Optional<Comment> getById(long id) {

@@ -8,9 +8,8 @@ import java.util.Optional;
 @Service
 public interface CommentService {
 
-    void saveComment(Comment comment);
+    Comment saveComment(Comment comment);
     void deleteCommentById (long id);
-    void save(Comment comment);
     Optional<Comment> getById(long id);
 
 }
