@@ -1,14 +1,14 @@
 package com.example.dmd_damn_delicious.repository;
 
-import com.example.dmd_damn_delicious.model.Ingredient;
+import com.example.dmd_damn_delicious.model.Rating;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface IngredientRepository  extends JpaRepository<Ingredient, Long> {
+public interface RatingRepository extends JpaRepository<Rating, Long> {
 
-    Optional<Ingredient> findById(long id);
+    Optional<Rating> findById(long id);
 
 }
