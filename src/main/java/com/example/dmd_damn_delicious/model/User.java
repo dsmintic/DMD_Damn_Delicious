@@ -22,13 +22,13 @@ public class User {
     private Long id;
 
     @NotEmpty(message = "Username cannot be empty")
-    @Column(name = "usernames")
+    @Column(name = "username")
     @NotNull
     @Length(min = 3, max = 20, message = "Must be between 3 and 20 characters long")
     private String username;
 
     @NotEmpty(message = "Password cannot be empty")
-    @Column(name = "passwords")
+    @Column(name = "password")
     @NotNull
     @Length(min = 8, message = "Password must be atleast 8 characters long")
     private String password;
