@@ -19,9 +19,12 @@ public class UserServiceImpl implements UserService{
         this.userRepository = userRepository;
     }
 
+
+
+
     @Override
-    public Optional<User> findByUsername(String username){
-        return userRepository.findByUsername(username);
+    public List<User> getUserByUsername(String username) {
+        return userRepository.findByUsernameContaining(username);
     }
 
     @Override
@@ -46,6 +49,7 @@ public class UserServiceImpl implements UserService{
         user.setPassword(user.getPassword());
         return this.userRepository.save(user);
     }
+
 
 //    @Override
 //    public User saveNewUser(User user) throws RoleNotFoundException {

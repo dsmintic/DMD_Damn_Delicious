@@ -43,8 +43,6 @@ public class User {
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     private Set<Recipe> recipes = new LinkedHashSet<>();
 
-    private String test;
-
     public Set<Recipe> getRecipes() {
         return recipes;
     }
@@ -72,6 +70,11 @@ public class User {
     public User() {
     }
 
+    public User(String username, String password, boolean role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
 
 //    @Override
 //    public boolean isAccountNonExpired() {
