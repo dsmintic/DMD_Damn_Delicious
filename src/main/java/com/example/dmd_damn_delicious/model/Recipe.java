@@ -69,6 +69,7 @@ public class Recipe {
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "ingredients")
     @JsonIgnore
     private Set<Ingredient> ingredients = new HashSet<>();
+
     public Recipe() {
     }
 
