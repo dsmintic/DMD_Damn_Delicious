@@ -2,7 +2,6 @@ package com.example.dmd_damn_delicious.model;
 
 import org.hibernate.validator.constraints.Length;
 
-// jakarta me ubija
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

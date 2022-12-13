@@ -88,7 +88,7 @@ public class Comment {
                 "id=" + id +
                 ", comment_text='" + text + '\'' +
                 ", creationDate=" + creationDate +
-                ", post_id=" + post.getId() + // can't go for post object itself as it will make a recursion and overflow a stack
+                ", post_id=" + recipe.getId() + // can't go for post object itself as it will make a recursion and overflow a stack
                 ", username=" + user.getUsername() +
                 '}';
     }
