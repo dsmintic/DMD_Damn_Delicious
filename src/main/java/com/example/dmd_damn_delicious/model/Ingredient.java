@@ -15,7 +15,7 @@ public class Ingredient {
     private Long id;
 
     @NotEmpty(message = "Name can't be empty.")
-    @Column  (name = "names")
+    @Column  (name = "name")
     @NotNull
     private String name;
 
