@@ -1,5 +1,4 @@
 package com.example.dmd_damn_delicious.repository;
 
-public interface IngredientsRepository {
+public interface IngredientRepository {
 }
-

@@ -9,6 +9,7 @@ import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -49,6 +50,10 @@ public class Recipe {
 
     @OneToMany(mappedBy = "recipes", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)//provjeriti da li je množina
     private Collection<Comment> comments;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
 
     public User getUser() {
