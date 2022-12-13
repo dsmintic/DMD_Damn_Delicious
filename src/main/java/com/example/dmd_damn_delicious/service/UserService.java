@@ -11,7 +11,7 @@ import java.util.Optional;
 //
 //}
 
-@Service
+
 public interface UserService {
 
     List<User> getUserByUsername (String username);
