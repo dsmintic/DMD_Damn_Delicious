@@ -8,8 +8,7 @@ import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.CreationTimestamp;
 
 
-import java.util.Collection;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -43,20 +42,16 @@ public class Recipe {
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
     @Column
-    private Date creationDate;
+    private LocalDateTime creationDate;
 
-    @Temporal(TemporalType.TIMESTAMP) // pitati Denisa za update
+    @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
-    @Column (name = "update_date", nullable = false, updatable = true)
-    private Date updateDate;
-
-    @OneToMany(mappedBy = "recipe", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    private Collection<Comment> comments;
+    @Column (name = "update_date", updatable = true)
+    private LocalDateTime updateDate;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
 
     public User getUser() {
         return user;
@@ -65,11 +60,8 @@ public class Recipe {
         this.user = user;
     }
 
-    @OneToMany(mappedBy = "recipe", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    private Collection<Rating> ratings;
-
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JsonIgnore
+    //@JsonIgnore
     private Set<Ingredient> ingredients = new HashSet<>();
 
     public Recipe() {
@@ -81,14 +73,6 @@ public class Recipe {
         this.content = content;
         this.user = user;
         this.ingredients = ingredients;
-    }
-
-    public Collection<Rating> getRatings() {
-        return ratings;
-    }
-
-    public void setRatings(Collection<Rating> ratings) {
-        this.ratings = ratings;
     }
 
     public Set<Ingredient> getIngredients() {
@@ -131,32 +115,21 @@ public class Recipe {
         this.content = content;
     }
 
-    public Date getCreationDate() {
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
     }
 
-    public Date getUpdateDate() {
+    public LocalDateTime getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(Date updateDate) {
+    public void setUpdateDate(LocalDateTime updateDate) {
         this.updateDate = updateDate;
     }
-
-    public Collection <Comment> getComments () {
-        return comments;
-    }
-
-    public void setComments (Collection <Comment> comments) {
-        this.comments = comments;
-    }
-
-    //public void setUser(org.springframework.security.core.userdetails.User user) {
-    //} pitati Denisa
 
     @Override
     public String toString() {
@@ -167,6 +140,7 @@ public class Recipe {
                 ", content='" + content + '\'' +
                 ", creationDate=" + creationDate +
                 ", updateDate=" + updateDate +
+                ", user=" + user +
                 '}';
     }
 }
