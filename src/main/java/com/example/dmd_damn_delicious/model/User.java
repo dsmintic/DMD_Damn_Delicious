@@ -5,12 +5,6 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.Set;
-
-
 @Entity
 @Table(name = "users")
 public class User {
@@ -33,30 +27,8 @@ public class User {
     @Length(min = 8, message = "Password must be atleast 8 characters long")
     private String password;
 
-    @Column(name= "role", nullable = false)
-    private boolean role;
-
     @Column(name= "is_admin", nullable = false)
     private boolean isAdmin;
-
-
-    @OneToMany(mappedBy = "user", orphanRemoval = true)
-    private Set<Comment> comments = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "user", orphanRemoval = true)
-    private Set<Recipe> recipes = new LinkedHashSet<>();
-
-    public Set<Recipe> getRecipes() {
-        return recipes;
-    }
-
-    public void setRecipes(Set<Recipe> recipes) {
-        this.recipes = recipes;
-    }
-
-    public Set<Comment> getComments() {
-        return comments;
-    }
 
     //Što s Authority?
 //    @OneToOne()
@@ -73,10 +45,10 @@ public class User {
     public User() {
     }
 
-    public User(String username, String password, boolean role) {
+    public User(String username, String password, boolean isAdmin) {
         this.username = username;
         this.password = password;
-        this.role = role;
+        this.isAdmin = isAdmin;
     }
 
 //    @Override
@@ -128,14 +100,6 @@ public class User {
         this.password = password;
     }
 
-    public boolean isRole() {
-        return role;
-    }
-
-    public void setRole(boolean role) {
-        this.role = role;
-    }
-
     public boolean isAdmin() {
         return isAdmin;
     }
@@ -144,16 +108,14 @@ public class User {
         isAdmin = admin;
     }
 
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", role=" + role +
                 ", isAdmin=" + isAdmin +
-                ", comments=" + comments +
-                ", recipes=" + recipes +
                 '}';
     }
 }

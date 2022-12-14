@@ -1,17 +1,19 @@
 package com.example.dmd_damn_delicious.service;
 
 import com.example.dmd_damn_delicious.model.Ingredient;
-import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
+
 
 
 public interface IngredientsService {
 
-    void saveIngredient (Ingredient ingredient);
+    Ingredient saveIngredient (Ingredient ingredient);
+
+    List<Ingredient> getAllIngredients();
 
     void deleteIngredientById (long id);
 
-    Optional<Ingredient> getById (long id);
+    Ingredient getIngredientById (long id);
 
 }

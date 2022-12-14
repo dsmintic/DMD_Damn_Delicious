@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api")
 public class UserControllerRest {
 
     private UserService userService;
@@ -55,18 +55,18 @@ public class UserControllerRest {
 //        return ResponseEntity.notFound().build();
 //    }
 
-    @PostMapping("/api/users")
+    @PostMapping("/users")
     public ResponseEntity<User> createUser(@RequestBody User user) {
 
         try {
-            User user1 = userService.saveUser(new User(user.getUsername(), user.getPassword(), user.isRole()));
+            User user1 = userService.saveUser(new User(user.getUsername(), user.getPassword(), user.isAdmin()));
             return new ResponseEntity<>(user1, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @GetMapping("/api/users")
+    @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers(String username) {
         try {
             List<User> users = new ArrayList<>();
@@ -88,7 +88,7 @@ public class UserControllerRest {
         }
     }
 
-    @GetMapping("/api/users/{id}")
+    @GetMapping("/users/{id}")
     public ResponseEntity<User> getUserById(@PathVariable("id") long id) {
         //method to return tutorial by id from database
         User user = userService.getUserByID(id);
@@ -99,19 +99,19 @@ public class UserControllerRest {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PutMapping("/api/users/{id}") // PUT in REST API
+    @PutMapping("/users/{id}") // PUT in REST API
     public ResponseEntity<User> updateUser(@PathVariable("id") long id, @RequestBody User user) {
         User user1 = userService.getUserByID(id);
         if(user1 != null ) {
             user1.setUsername(user.getUsername());
             user1.setPassword(user.getPassword());
-            user1.setRole(user.isRole());
+            user1.setAdmin(user.isAdmin());
             return new ResponseEntity<>(userService.saveUser(user1), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping ("/api/users/{id}")
+    @DeleteMapping ("/users/{id}")
     public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") long id){
         try {
             userService.deletePersonById(id);

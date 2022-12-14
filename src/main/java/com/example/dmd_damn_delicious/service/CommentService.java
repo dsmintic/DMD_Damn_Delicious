@@ -14,6 +14,9 @@ public interface CommentService {
     Optional<Comment> getById(long id);
 
     List<Comment> getAllComments();
+    List<Comment> getAllCommentsByRecipeId(long id);
 
     Comment getCommentById(long id);
+
+    List<Comment> getAllCommentsByUserId(long userId);
 }

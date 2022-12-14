@@ -19,9 +19,6 @@ public class UserServiceImpl implements UserService{
         this.userRepository = userRepository;
     }
 
-
-
-
     @Override
     public List<User> getUserByUsername(String username) {
         return userRepository.findByUsernameContaining(username);

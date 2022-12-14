@@ -5,7 +5,7 @@ import com.example.dmd_damn_delicious.repository.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
 
 @Service
 public class IngredientsServiceImpl implements IngredientsService {
@@ -18,8 +18,13 @@ public class IngredientsServiceImpl implements IngredientsService {
     }
 
     @Override
-    public void saveIngredient(Ingredient ingredient) {
-        this.ingredientRepository.save(ingredient);
+    public Ingredient saveIngredient(Ingredient ingredient) {
+        return this.ingredientRepository.save(ingredient);
+    }
+
+    @Override
+    public List<Ingredient> getAllIngredients() {
+        return ingredientRepository.findAll();
     }
 
     @Override
@@ -28,7 +33,7 @@ public class IngredientsServiceImpl implements IngredientsService {
     }
 
     @Override
-    public Optional<Ingredient> getById(long id) {
-        return ingredientRepository.findById(id);
+    public Ingredient getIngredientById(long id) {
+        return ingredientRepository.findById(id).orElse(null);
     }
 }
