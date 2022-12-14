@@ -6,6 +6,7 @@ import com.example.dmd_damn_delicious.repository.RatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,9 +21,8 @@ public class RatingServiceImpl implements RatingService{
 
 
     @Override
-    public void saveRating(Rating rating) {
-        this.ratingRepository.save(rating);
-
+    public Rating saveRating(Rating rating) {
+        return this.ratingRepository.save(rating);
     }
 
     @Override
@@ -31,7 +31,22 @@ public class RatingServiceImpl implements RatingService{
     }
 
     @Override
-    public Optional<Rating> getById(long id) {
+    public Optional<Rating> getRatingById(long id) {
         return ratingRepository.findById(id);
+    }
+
+    @Override
+    public List<Rating> getAllRatings() {
+        return ratingRepository.findAll();
+    }
+
+    @Override
+    public List<Rating> getAllRatingsByRecipeId(long recipeId) {
+        return ratingRepository.findAllRatingsByRecipeId(recipeId);
+    }
+
+    @Override
+    public Rating getRatingByRecipeIdAndUserId(long recipeId, long userId) {
+        return ratingRepository.findByRecipeIdAndUserId(recipeId, userId);
     }
 }
