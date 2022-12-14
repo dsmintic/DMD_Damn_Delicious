@@ -29,11 +29,11 @@ public class RecipeControllerRest {
         this.ingredientsService = ingredientsService;
     }
 
-    @PostMapping("/recipes")
-    public ResponseEntity<Recipe> createRecipe (@RequestBody Recipe recipe){
+    @PostMapping("/recipes/{userId}")
+    public ResponseEntity<Recipe> createRecipe (@PathVariable(value = "userId") long userId , @RequestBody Recipe recipe){
 
         try {
-            User user = userService.getUserByID(recipe.getUser().getId());
+            User user = userService.getUserByID(userId);
 
             Set<Ingredient> ingredients = recipe.getIngredients();
             Set<Ingredient> ingredients1 = new HashSet<>();

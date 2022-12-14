@@ -2,6 +2,7 @@ package com.example.dmd_damn_delicious.controller;
 
 import com.example.dmd_damn_delicious.model.Comment;
 import com.example.dmd_damn_delicious.model.Recipe;
+import com.example.dmd_damn_delicious.model.User;
 import com.example.dmd_damn_delicious.service.CommentService;
 import com.example.dmd_damn_delicious.service.RecipeService;
 import com.example.dmd_damn_delicious.service.UserService;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -28,17 +30,21 @@ public class CommentControllerRest {
     }
 
 
-    @PostMapping("/comments")
-    public ResponseEntity<Comment> createComment(@RequestBody Comment comment) {
+    @PostMapping("/comments/{userId}/{recipeId}")
+    public ResponseEntity<Comment> createComment(@PathVariable(value = "userId") long userId, @PathVariable(value = "recipeId") long recipeId , @RequestBody Comment comment) {
         try {
-            Comment comment1 = commentService.saveComment(new Comment(comment.getText(), comment.getUser(), comment.getRecipe()));
+
+            User user = userService.getUserByID(userId);
+            Recipe recipe = recipeService.getRecipeById(recipeId);
+
+            Comment comment1 = commentService.saveComment(new Comment(comment.getText(), user, recipe));
             return new ResponseEntity<>(comment1, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @GetMapping({"/comments"})
+    @GetMapping("/comments")
     public ResponseEntity<List<Comment>> getAllComments(){
         try {
             List<Comment> comments = commentService.getAllComments();
@@ -52,7 +58,29 @@ public class CommentControllerRest {
         }
     }
 
-    @GetMapping({"/comments/{id}"})
+    @GetMapping("/comments/r/{recipeId}")
+    public ResponseEntity<List<Comment>> GetAllCommentsByRecipeId(@PathVariable(value = "recipeId") long recipeId) {
+
+        List<Comment> comments = commentService.getAllCommentsByRecipeId(recipeId);
+
+        if(comments.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(comments, HttpStatus.OK);
+    }
+
+    @GetMapping("/comments/u/{userId}")
+    public ResponseEntity<List<Comment>> GetAllCommentsByUserId(@PathVariable(value = "userId") long userId) {
+
+        List<Comment> comments = commentService.getAllCommentsByUserId(userId);
+
+        if(comments.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(comments, HttpStatus.OK);
+    }
+
+    @GetMapping("/comments/{id}")
     public ResponseEntity<Comment> getCommentById(@PathVariable(value = "id") long id){
         Comment comment = commentService.getCommentById(id);
 
@@ -62,11 +90,12 @@ public class CommentControllerRest {
         return new ResponseEntity<>(comment, HttpStatus.OK);
     }
 
-    @PutMapping("/comments/{id}") // PUT in REST API
+    @PutMapping("/comments/{id}")
     public ResponseEntity<Comment> updateCommentById(@PathVariable("id") long id, @RequestBody Comment comment) {
         Comment comment1 = commentService.getCommentById(id);
         if(comment1 != null ) {
             comment1.setText(comment.getText());
+            comment1.setUpdateDate(LocalDateTime.now());
             return new ResponseEntity<>(commentService.saveComment(comment1), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);

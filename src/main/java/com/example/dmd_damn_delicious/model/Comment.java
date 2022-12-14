@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "comments")
@@ -25,24 +25,24 @@ public class Comment {
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
     @Column(name = "creation_date", nullable = false, updatable = false)
-    private Date creationDate;
+    private LocalDateTime creationDate;
 
-    @Temporal(TemporalType.TIMESTAMP) // pitati Denisa za update
+    @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
-    @Column (name = "update_date", nullable = false, updatable = true)
-    private Date updateDate;
+    @Column (name = "update_date", updatable = true)
+    private LocalDateTime updateDate;
 
-    public Date getCreationDate() {
+    public LocalDateTime getCreationDate() {
         return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
     }
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "recipe_id", nullable = false)
+    private Recipe recipe;
 
 
     public User getUser() {
@@ -52,12 +52,6 @@ public class Comment {
     public void setUser(User user) {
         this.user = user;
     }
-
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "recipe_id", nullable = false)
-    private Recipe recipe;
-
-
 
     public Recipe getRecipe() {
         return recipe;
@@ -92,16 +86,35 @@ public class Comment {
         this.id = id;
     }
 
+    public LocalDateTime getUpdateDate() {
+        return updateDate;
+    }
+    public void setUpdateDate(LocalDateTime updateDate) {
+        this.updateDate = updateDate;
+    }
+
+
+    //    @Override
+//    public String toString() {
+//        return "Comment{" +
+//                "id=" + id +
+//                ", comment_text='" + text + '\'' +
+//                ", creationDate=" + creationDate +
+//                ", post_id=" + recipe.getId() + // can't go for post object itself as it will make a recursion and overflow a stack
+//                ", username=" + user.getUsername() +
+//                '}';
+//    }
+
+
     @Override
     public String toString() {
         return "Comment{" +
                 "id=" + id +
-                ", comment_text='" + text + '\'' +
+                ", text='" + text + '\'' +
                 ", creationDate=" + creationDate +
-                ", post_id=" + recipe.getId() + // can't go for post object itself as it will make a recursion and overflow a stack
-                ", username=" + user.getUsername() +
+                ", updateDate=" + updateDate +
+                ", user=" + user +
+                ", recipeId=" + recipe.getId() +
                 '}';
     }
-
-
 }
