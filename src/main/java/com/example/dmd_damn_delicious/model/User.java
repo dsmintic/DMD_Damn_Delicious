@@ -36,6 +36,9 @@ public class User {
     @Column(name= "role", nullable = false)
     private boolean role;
 
+    @Column(name= "is_admin", nullable = false)
+    private boolean isAdmin;
+
 
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     private Set<Comment> comments = new LinkedHashSet<>();
@@ -133,6 +136,14 @@ public class User {
         this.role = role;
     }
 
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -140,6 +151,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
+                ", isAdmin=" + isAdmin +
                 ", comments=" + comments +
                 ", recipes=" + recipes +
                 '}';

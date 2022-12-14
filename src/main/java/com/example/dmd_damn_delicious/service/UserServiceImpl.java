@@ -55,6 +55,20 @@ public class UserServiceImpl implements UserService{
         userRepository.deleteById(id);
     }
 
+    @Override
+    public boolean userExists(String username) {
+        return this.userRepository.existsByUsernameIgnoreCase(username);
+    }
+
+//    public Optional<User> findByUsername(String username) {
+//        return this.userRepository.findByUsername(username);
+//    }
+
+
+
+
+
+
 
 //    @Override
 //    public User saveNewUser(User user) throws RoleNotFoundException {
