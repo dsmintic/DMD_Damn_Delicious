@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public List<User> getUserByUsername(String username) {
+    public List<User> getUsersByUsername(String username) {
         return userRepository.findByUsernameContaining(username);
     }
 
@@ -55,6 +55,16 @@ public class UserServiceImpl implements UserService{
     @Override
     public boolean userExists(String username) {
         return this.userRepository.existsByUsernameIgnoreCase(username);
+    }
+
+    @Override
+    public Optional<User> findByUsername(String username) {
+        return this.userRepository.findByUsername(username);
+    }
+
+    @Override
+    public Optional<User> findById(Long userId) {
+        return this.userRepository.findById(userId);
     }
 
 //    public Optional<User> findByUsername(String username) {

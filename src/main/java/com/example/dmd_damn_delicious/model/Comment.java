@@ -18,7 +18,7 @@ public class Comment {
     private Long id;
 
     @NotEmpty(message = "Text cannot be empty")
-    @Column(name = "text")
+    @Column(name = "text", columnDefinition = "TEXT")
     @NotNull
     private String text;
 

@@ -13,4 +13,6 @@ import java.util.Optional;
         List<User> findByUsernameContaining (String username);
 
         boolean existsByUsernameIgnoreCase(String username);
+
+        Optional<User> findByUsername(String username);
     }

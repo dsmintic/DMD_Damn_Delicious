@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -24,14 +25,7 @@ public class UserControllerRest {
         this.userService = userService;
     }
 
-    @GetMapping
-    public List<UserDTO> users() {
-        return this.userService.getAllUsers()
-                .stream()
-                .map(UserDTO::fromEntity)
-                .toList();
-    }
-//
+
 //    @GetMapping("/{userId}")
 //    public ResponseEntity<UserDTO> getById(@PathVariable Long userId) {
 //        Optional<User> userOptional = this.userService.getUserByID(userId);
@@ -75,7 +69,7 @@ public class UserControllerRest {
                 users = userService.getAllUsers();
             } else {
                 //create a method that will filter by title
-                users = userService.getUserByUsername(username);
+                users = userService.getUsersByUsername(username);
             }
             // get a list of tutorials from database
 
@@ -119,6 +113,37 @@ public class UserControllerRest {
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping
+    public List<UserDTO> users() {
+        return this.userService.getAllUsers()
+                .stream()
+                .map(UserDTO::fromEntity)
+                .toList();
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserDTO> getById(@PathVariable Long userId) {
+        Optional<User> userOptional = this.userService.findById(userId);
+
+        if (userOptional.isPresent()) {
+            return ResponseEntity.ok(userOptional.map(UserDTO::fromEntity).get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/users/me")
+    public ResponseEntity<UserDTO> me(Principal principal) {
+        if (principal != null) {
+            Optional<User> userOptional = this.userService.findByUsername(principal.getName());
+            if (userOptional.isPresent()) {
+                return ResponseEntity.ok(userOptional.map(UserDTO::fromEntity).get());
+            }
+        }
+
+        return ResponseEntity.notFound().build();
     }
 
 }
