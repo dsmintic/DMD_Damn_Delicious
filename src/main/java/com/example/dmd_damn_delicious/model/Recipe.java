@@ -30,12 +30,12 @@ public class Recipe {
     private String title;
 
     @NotEmpty (message = "Summary can't be empty.")
-    @Column  (name = "summary")
+    @Column  (name = "summary", columnDefinition = "TEXT")
     @NotNull
     private String summary;
 
     @NotEmpty (message = "Content can't be empty.")
-    @Column  (name = "content")
+    @Column  (name = "content", columnDefinition = "TEXT")
     @NotNull
     private String content;
 

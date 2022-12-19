@@ -1,0 +1,4 @@
+jwt:
+  secret: "replace-with-a-long-and-secret-value!"
+  issuer: "security-example-application"
+  cookieName: "jwt"

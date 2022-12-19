@@ -15,7 +15,7 @@ import java.util.Optional;
 public interface UserService {
 
 
-    List<User> getUserByUsername (String username);
+    List<User> getUsersByUsername (String username);
 
 //    User saveNewUser(User user) throws RoleNotFoundException;
 
@@ -30,7 +30,9 @@ public interface UserService {
 
     public boolean userExists(String username);
 
-//    public Optional<User> findByUsername(String username);
+    public Optional<User> findByUsername(String username);
+
+    public Optional<User> findById(Long userId);
 
 
 
