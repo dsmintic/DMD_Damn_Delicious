@@ -50,7 +50,7 @@ public class WebSecurityConfiguration /*extends WebSecurityConfigurerAdapter*/ {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests()
-                .requestMatchers("/api/auth/register", "/api/auth/login").permitAll()
+                .requestMatchers("/api/auth/register", "/api/auth/login", "/api/recipes/**", "/api/ingredients/**").permitAll()
                 .requestMatchers("/api/auth/**").authenticated()
                 .requestMatchers("/api/messages").authenticated()
                 .requestMatchers("/api/users/**").authenticated()
