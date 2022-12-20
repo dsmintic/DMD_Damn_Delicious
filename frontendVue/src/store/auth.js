@@ -71,5 +71,6 @@ export const useAuthStore = defineStore("auth", {
             this.id = 0;
             persistState(this.isAuthenticated);
         },
-    }
+    },
+    persist: true
 })
