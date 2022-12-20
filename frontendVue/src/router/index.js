@@ -6,6 +6,7 @@ import HomeView from '../views/HomeView.vue';
 import VideoRecipesView from '../views/VideoRecipesView.vue';
 import SignInView from '../views/SignInView.vue';
 import RegisterView from '../views/RegisterView.vue';
+import AddRecipeView from '../views/AddRecipeView.vue';
 
 const routes = [
   { path:'/', name:'Home', component:HomeView},
@@ -14,6 +15,7 @@ const routes = [
   { path:'/video', name:'Video', component: VideoRecipesView},
   { path:'/signin', name:'SignIn', component: SignInView},
   { path:'/register', name:'Register', component: RegisterView},
+  { path:'/addrecipe', name:'AddRecipe', component: AddRecipeView},
   
 
 

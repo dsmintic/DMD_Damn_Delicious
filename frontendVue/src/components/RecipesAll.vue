@@ -27,10 +27,7 @@
             unde perspiciatis ratione. Voluptate commodi dignissimos distinctio. Animi in est eligendi corporis deleniti
             magnam qui ad culpa voluptate?</p>
       </article>
-    </section>
-  
-  
-    <section class="container">
+
       <article>
           <h1 class="fontbold">Title 4</h1>
           <img src="../images/Chicken Kabobs with Grilled Onions.png">
@@ -57,9 +54,7 @@
             unde perspiciatis ratione. Voluptate commodi dignissimos distinctio. Animi in est eligendi corporis deleniti
             magnam qui ad culpa voluptate?</p>
       </article>
-    </section>
-  
-    <section class="container">
+
       <article>
           <h1 class="fontbold">Title 4</h1>
           <img src="../images/Tomato Soup.png">
@@ -86,9 +81,7 @@
             unde perspiciatis ratione. Voluptate commodi dignissimos distinctio. Animi in est eligendi corporis deleniti
             magnam qui ad culpa voluptate?</p>
       </article>
-    </section>
-    
-    <section class="container">
+
       <article>
           <h1 class="fontbold">Title 4</h1>
           <img src="../images/5-Minute Yoghurt and Fruit Parfaits.png">
@@ -116,8 +109,6 @@
             magnam qui ad culpa voluptate?</p>
       </article>
     </section>
-
-
   
   </template>
 
@@ -127,6 +118,7 @@
 .container {
     overflow: hidden;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
     align-items: flex-start;
 }
@@ -140,7 +132,7 @@
   margin-left: 10px;
   margin-right: 10px;
   margin-bottom: 20px;
-  flex-basis: 33%;
+  flex-basis: 32%;
 }
 
 .container article img{
