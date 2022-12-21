@@ -10,6 +10,11 @@ export default {
       }
     },
     created() {
+      // const route = useRoute();
+      // this.id = route.params.id;
+      // this.fetchRecipe();
+    },
+    beforeMount() {
       const route = useRoute();
       this.id = route.params.id;
       this.fetchRecipe();
@@ -66,7 +71,7 @@ export default {
         <a class="myButton_delete" href="#" v-if="authStore.isAuthenticated">Delete Comment</a>
 
         <!-- v-if="`${authStore.isAuthenticated} && ${this.recipe.user.id} == ${authStore.id}`" -->
-        <a class="myButton_comment" href="#">Comment Recipe</a>
+        <a class="myButton_comment" href="#" v-if="`${authStore.isAuthenticated} && ${this.recipe.user.id} == ${authStore.id}`">Comment Recipe</a>
       </div>
 
 

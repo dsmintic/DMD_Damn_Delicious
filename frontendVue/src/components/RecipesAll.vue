@@ -210,7 +210,7 @@ export default defineComponent({
     overflow: hidden;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: flex-start;
 }
 
@@ -224,6 +224,10 @@ export default defineComponent({
     margin-right: 10px;
     margin-bottom: 20px;
     flex-basis: 23%;
+}
+
+.container article h1 {
+    text-align: center;
 }
 
 .container article img {
