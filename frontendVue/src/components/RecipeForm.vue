@@ -5,120 +5,120 @@ import { useAuthStore } from "@/store/auth";
 import ErrorMessage from "@/components/ErrorMessage.vue";
 
 export default defineComponent({
-  name: "RecipeForm",
-  components: { ErrorMessage },
-  data() {
-    return {
-      recipe: {
-        title: '',
-        summary: '',
-        content: '',
-        ingredients: [],
-        imagePath: ''
-      },
-      error: null,
-      isLoggedIn: false,
-      ingredients: [],
-      checkedIngredients: [],
-      image: undefined
-    }
-  },
-  created() {
-    this.fetchIngredients();
-  },
-  computed: {
-    ...mapStores(useAuthStore),
-    valid() {
-
-        const titleCheck = this.recipe.title.length > 0;
-        const summaryCheck = this.recipe.summary.length > 0;
-        const contentCheck = this.recipe.content.length > 0;
-        const ingredientsCheck = this.checkedIngredients.length > 0;
-        const imageCheck = this.image != undefined;
-        console.log(titleCheck && summaryCheck && contentCheck && ingredientsCheck && imageCheck);
-      return titleCheck && summaryCheck && contentCheck && ingredientsCheck && imageCheck;
-    },
-  },
-  methods: {
-    async addRecipe() {
-
-        const url = `/api/recipes/${this.authStore.id}`;
-
-        for (let ingredient of this.checkedIngredients) {
-            this.recipe.ingredients.push({"id": ingredient});
-        }
-
-        this.error = null;
-
-        ///////////image stuff
-
-        let formData = new FormData();
-
-        formData.append( 'image', this.image );
-
-        await fetch( '/api/recipes/upload', {
-            method: 'POST',
-            headers: {
-                //'Content-Type': 'multipart/form-data'
+    name: "RecipeForm",
+    components: { ErrorMessage },
+    data() {
+        return {
+            recipe: {
+                title: '',
+                summary: '',
+                content: '',
+                ingredients: [],
+                imagePath: ''
             },
-            body: formData
-        })
-        .then( response => {
-            if (!response.ok){
+            error: null,
+            isLoggedIn: false,
+            ingredients: [],
+            checkedIngredients: [],
+            image: undefined
+        }
+    },
+    created() {
+        this.fetchIngredients();
+    },
+    computed: {
+        ...mapStores(useAuthStore),
+        valid() {
+
+            const titleCheck = this.recipe.title.length > 0;
+            const summaryCheck = this.recipe.summary.length > 0;
+            const contentCheck = this.recipe.content.length > 0;
+            const ingredientsCheck = this.checkedIngredients.length > 0;
+            const imageCheck = this.image != undefined;
+            console.log(titleCheck && summaryCheck && contentCheck && ingredientsCheck && imageCheck);
+            return titleCheck && summaryCheck && contentCheck && ingredientsCheck && imageCheck;
+        },
+    },
+    methods: {
+        async addRecipe() {
+
+            const url = `/api/recipes/${this.authStore.id}`;
+
+            for (let ingredient of this.checkedIngredients) {
+                this.recipe.ingredients.push({ "id": ingredient });
+            }
+
+            this.error = null;
+
+            ///////////image stuff
+
+            let formData = new FormData();
+
+            formData.append('image', this.image);
+
+            await fetch('/api/recipes/upload', {
+                method: 'POST',
+                headers: {
+                    //'Content-Type': 'multipart/form-data'
+                },
+                body: formData
+            })
+                .then(response => {
+                    if (!response.ok) {
                         return Promise.reject("Page does not exist");
                     } else {
                         return response.text();
                     }
-        })
-        .then(answer => {
+                })
+                .then(answer => {
                     this.recipe.imagePath = answer;
                 })
-        .catch(error => console.log("An error has appered: " + error));
-        
-        console.log(this.recipe.imagePath);
+                .catch(error => console.log("An error has appered: " + error));
 
-        //////////image end
-        
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                "Content-Type" : "application/json"
-            },
-            body: JSON.stringify({
-                title: this.recipe.title.trim(),
-                summary: this.recipe.summary,
-                content: this.recipe.content,
-                ingredients: this.recipe.ingredients,
-                imagePath: this.recipe.imagePath
+            console.log(this.recipe.imagePath);
+
+            //////////image end
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    title: this.recipe.title.trim(),
+                    summary: this.recipe.summary,
+                    content: this.recipe.content,
+                    ingredients: this.recipe.ingredients,
+                    imagePath: this.recipe.imagePath
+                })
             })
-        })
-        .then(response => {
-            if (!response.ok){
-                return Promise.reject("Page does not exist");
-            } else {
-                return response.json();
-            }
-        })
-        .then(answer => {
-            console.log(answer);
-            this.$router.push({ name: 'Recipes' })
-        })
-        .catch(error => console.log("An error has appered: " + error));
-    },
-    fetchIngredients() {
-      fetch('/api/ingredients', {})
-          .then(response => response.json())
-          .then(data => {
-            console.log('data', data)
-            this.ingredients = data;
-          })
-          .catch(error => console.log('error', error))
-    },
+                .then(response => {
+                    if (!response.ok) {
+                        return Promise.reject("Page does not exist");
+                    } else {
+                        return response.json();
+                    }
+                })
+                .then(answer => {
+                    console.log(answer);
+                    this.$router.push({ name: 'Recipes' })
+                })
+                .catch(error => console.log("An error has appered: " + error));
+        },
+        fetchIngredients() {
+            fetch('/api/ingredients', {})
+                .then(response => response.json())
+                .then(data => {
+                    console.log('data', data)
+                    this.ingredients = data;
+                })
+                .catch(error => console.log('error', error))
+        },
 
-    handleFileUpload( e ){
-        this.image = e.target.files[0];
+        handleFileUpload(e) {
+            this.image = e.target.files[0];
+        }
     }
-  }
 });
 </script>
 
@@ -144,7 +144,10 @@ export default defineComponent({
                 <!-- <div>Checked ingredients: {{ checkedIngredients }}</div> -->
                 <p>Check recipe ingredients:</p>
                 <div style="display: inline;">
-                <label class="ingredientLabel" v-for="ingredient of ingredients" :for="ingredient.name">{{ ingredient.name }} <input type="checkbox" :value="ingredient.id" v-model="checkedIngredients" :id="ingredient.name"></label>
+                    <span class="ingredientLabel" v-for="ingredient of ingredients" :for="ingredient.name">{{
+                            ingredient.name
+                    }} <input class="checkboxtext" type="checkbox" :value="ingredient.id" v-model="checkedIngredients"
+                            :id="ingredient.name"></span>
                 </div>
 
                 <p><label for="title">Title:</label> <input type="text" id="title"
@@ -154,22 +157,26 @@ export default defineComponent({
                         placeholder="Please enter a summary of the recipe" rows="10" v-model="summary"></p> -->
 
                 <p><label for="title">Summary:</label>
-                    <textarea class="textarea" placeholder="Please enter a summary of the recipe" rows="10" v-model="recipe.summary"></textarea>
+                    <textarea class="summarytext" placeholder="Please enter a summary of the recipe" rows="10"
+                        v-model="recipe.summary"></textarea>
                 </p>
 
                 <!-- Dennis - Ingredients adding + - -->
 
                 <p><label for="title">Method:</label>
-                    <textarea class="textarea" placeholder="Please enter the cooking method" rows="20" v-model="recipe.content"></textarea>
+                    <textarea class="methodtext" placeholder="Please enter the cooking method" rows="50"
+                        v-model="recipe.content"></textarea>
                 </p>
 
-                <input type="file" @change="handleFileUpload( $event )"/>
+                <div class="container_buttons">
+                    <input class="myButton" type="file" @change="handleFileUpload($event)" />
+                </div>
 
                 <div class="container_buttons">
                     <p><input class="myButton" type="submit" value="Add recipe" :disabled="!valid"></p>
                 </div>
             </form>
-            <ErrorMessage v-if="error?.message" :error="error"/>
+            <ErrorMessage v-if="error?.message" :error="error" />
         </article>
     </section>
 
@@ -180,7 +187,6 @@ export default defineComponent({
     overflow: hidden;
     display: flex;
     justify-content: center;
-
 }
 
 .container article {
@@ -189,45 +195,59 @@ export default defineComponent({
     margin-bottom: 20px;
     background-color: #FFF6ED;
     width: 1000px;
-    /* flex-basis: 100%; */
 }
 
 .container article h1 {
-    font-size: medium;
+    /* font-size: medium; */
+    font-weight: 700;
     background-color: #FFF6ED;
+    color: #FF9F68;
+    display: flex;
+    justify-content: center;
 }
 
 .container article p {
     font-size: medium;
+    font-weight: 400;
+    margin-left: 20px;
 }
 
 
 :focus-visible {
-    outline-color: #FFBF86;
+    outline-color: #B9DEFF;
     outline-offset: 3px;
     border-color: #FFDAB9;
     border-style: solid;
 }
 
-#formRecipe input[type=text],
-#formRecipe textarea {
+#formRecipe input[type=text] {
     width: 50%;
     background-color: white;
     height: 25px;
-    border-bottom: 1px solid black;
+    border: transparent;
     box-shadow: inset 2px 2px 2px grey, 0 -1px 1px white;
+    
 }
 
-#formRecipe textarea {
-    height: 200px;
+.summarytext {
+    height: 50px;
     resize: none;
     border: 3px solid transparent;
-    /* box-shadow: inset 0 1px 2px rgba(0, 0, 0, 4); */
     box-shadow: inset 2px 2px 2px grey, 0 -1px 1px white;
     background-color: white;
     width: 80%;
+    vertical-align: top;
 }
 
+.methodtext {
+    height: 200px;
+    resize: none;
+    border: 3px solid transparent;
+    box-shadow: inset 2px 2px 2px grey, 0 -1px 1px white;
+    background-color: white;
+    width: 80%;
+    vertical-align: top;
+}
 
 .error {
     background-color: #FDB9FF;
@@ -237,20 +257,8 @@ export default defineComponent({
     display: inline-block;
     width: 100px;
     text-align: right;
-
 }
 
-.inset {
-    /* border: 3px solid transparent;
-   box-shadow: inset 0 1px 2px rgba(0,0,0,4); */
-    /* border-bottom: 1px solid black; */
-    box-shadow: inset 2px 2px 2px grey, 0 -1px 1px white;
-    width: 220px;
-    height: 30px;
-    text-align: center;
-    background-color: white;
-    margin-left: 100px;
-}
 
 .fontbold {
     background-color: peachpuff;
@@ -268,7 +276,7 @@ export default defineComponent({
 .container_buttons {
     overflow: hidden;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     padding-bottom: 10px;
     margin-bottom: 0;
 }
@@ -278,12 +286,11 @@ export default defineComponent({
     margin-top: 5px;
     background-color: #B9DEFF;
     border-radius: 8px;
-    display: inline-block;
     cursor: pointer;
     color: black;
-    font-size: 20px;
+    font-size: 15px;
     font-weight: bold;
-    padding: 13px 25px;
+    padding: 10px 20px;
     text-decoration: none;
     border: none;
 }
@@ -299,6 +306,14 @@ export default defineComponent({
 }
 
 .ingredientLabel {
-    margin-left: 5px;
+    margin-left: 10px;
+    font-size: medium;
+    /* display: inline; */
+}
+
+.checkboxtext
+{
+  /* Checkbox text */
+  display: inline;
 }
 </style>
