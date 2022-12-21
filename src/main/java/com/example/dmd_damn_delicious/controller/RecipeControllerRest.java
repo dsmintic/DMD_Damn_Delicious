@@ -2,15 +2,19 @@ package com.example.dmd_damn_delicious.controller;
 
 import com.example.dmd_damn_delicious.model.Ingredient;
 import com.example.dmd_damn_delicious.model.User;
+import com.example.dmd_damn_delicious.service.FileService;
 import com.example.dmd_damn_delicious.service.IngredientsService;
 import com.example.dmd_damn_delicious.service.RecipeService;
 import com.example.dmd_damn_delicious.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.dmd_damn_delicious.model.Recipe;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -21,12 +25,17 @@ public class RecipeControllerRest {
     private final UserService userService;
 
     private final IngredientsService ingredientsService;
+    private final FileService fileService;
+
+    @Value("${project.image}")
+    private String path;
 
     @Autowired
-    public RecipeControllerRest(RecipeService recipeService, UserService userService, IngredientsService ingredientsService) {
+    public RecipeControllerRest(RecipeService recipeService, UserService userService, IngredientsService ingredientsService, FileService fileService) {
         this.recipeService = recipeService;
         this.userService = userService;
         this.ingredientsService = ingredientsService;
+        this.fileService = fileService;
     }
 
     @PostMapping("/recipes/{userId}")
@@ -100,5 +109,19 @@ public class RecipeControllerRest {
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @PostMapping("/recipes/upload")
+    public ResponseEntity<String> fileUpload(@RequestParam("image") MultipartFile image) {
+        String imagePath = null;
+        try {
+            imagePath = this.fileService.uploadImage(path, image);
+        } catch (IOException e) {
+            return new ResponseEntity<>(imagePath, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        imagePath = imagePath.replace("frontendVue/src", "..");
+
+        return new ResponseEntity<>(imagePath, HttpStatus.OK);
     }
 }

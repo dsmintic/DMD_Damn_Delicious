@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.UUID;
 
 @Service
 public class FileServiceImpl implements FileService{
@@ -15,7 +16,10 @@ public class FileServiceImpl implements FileService{
     public String uploadImage(String path, MultipartFile file) throws IOException {
         String name = file.getOriginalFilename();
 
-        String filePath = path + File.separator + name;
+        String randomId = UUID.randomUUID().toString();
+        String fileName1 = randomId.concat(name.substring(name.lastIndexOf(".")));
+
+        String filePath = path + File.separator + fileName1;
 
         File f = new File(path);
         if (!f.exists()) {
@@ -24,6 +28,6 @@ public class FileServiceImpl implements FileService{
 
         Files.copy(file.getInputStream(), Paths.get(filePath));
 
-        return name;
+        return filePath;
     }
 }

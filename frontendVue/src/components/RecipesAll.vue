@@ -165,7 +165,6 @@
             <p class="textfont">Mixing lamb with pesto and cheese gives gorgeous flavour from the inside.</p>
         </article>
     </section>
-
 </template>
 
 

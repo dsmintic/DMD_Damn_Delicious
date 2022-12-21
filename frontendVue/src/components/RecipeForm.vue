@@ -18,7 +18,8 @@ export default defineComponent({
       error: null,
       isLoggedIn: false,
       ingredients: [],
-      checkedIngredients: []
+      checkedIngredients: [],
+      image: undefined
     }
   },
   created() {
@@ -32,8 +33,9 @@ export default defineComponent({
         const summaryCheck = this.recipe.summary.length > 0;
         const contentCheck = this.recipe.content.length > 0;
         const ingredientsCheck = this.checkedIngredients.length > 0;
-        console.log(titleCheck && summaryCheck && contentCheck && ingredientsCheck);
-      return titleCheck && summaryCheck && contentCheck && ingredientsCheck;
+        const imageCheck = this.image != undefined;
+        console.log(titleCheck && summaryCheck && contentCheck && ingredientsCheck && imageCheck);
+      return titleCheck && summaryCheck && contentCheck && ingredientsCheck && imageCheck;
     },
   },
   methods: {
@@ -51,6 +53,35 @@ export default defineComponent({
         }
 
         this.error = null;
+
+        ///////////image stuff
+
+        let formData = new FormData();
+
+        //formData.append( 'method', this.form.method );
+        formData.append( 'image', this.image );
+
+    fetch( '/api/recipes/upload', {
+    method: 'POST',
+    headers: {
+        //'Content-Type': 'multipart/form-data'
+    },
+    body: formData
+} )
+.then( response => {
+    if (!response.ok){
+                return Promise.reject("Page does not exist");
+            } else {
+                return response.text();
+            }
+})
+.then(answer => {
+            console.log(answer);
+        })
+.catch(error => console.log("An error has appered: " + error));
+
+
+        //////////image end
         
         fetch(url, {
             method: 'POST',
@@ -68,7 +99,7 @@ export default defineComponent({
             if (!response.ok){
                 return Promise.reject("Page does not exist");
             } else {
-                return response.json(); 
+                return response.json();
             }
         })
         .then(answer => {
@@ -76,8 +107,6 @@ export default defineComponent({
             this.$router.push({ name: 'Recipes' })
         })
         .catch(error => console.log("An error has appered: " + error));
-
-
     },
     fetchIngredients() {
       fetch('/api/ingredients', {})
@@ -87,6 +116,10 @@ export default defineComponent({
             this.ingredients = data;
           })
           .catch(error => console.log('error', error))
+    },
+
+    handleFileUpload( e ){
+        this.image = e.target.files[0];
     }
   }
 });
@@ -132,6 +165,8 @@ export default defineComponent({
                 <p><label for="title">Method:</label>
                     <textarea class="textarea" placeholder="Please enter the cooking method" rows="20" v-model="recipe.content"></textarea>
                 </p>
+
+                <input type="file" @change="handleFileUpload( $event )"/>
 
                 <div class="container_buttons">
                     <p><input class="myButton" type="submit" value="Add recipe" :disabled="!valid"></p>
