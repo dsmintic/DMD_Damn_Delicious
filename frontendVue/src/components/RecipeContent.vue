@@ -1,12 +1,87 @@
 <script>
+import { mapStores } from "pinia";
+import { useAuthStore } from "@/store/auth";
+import { useRoute } from 'vue-router';
 export default {
-
+    data(){
+      return {
+        recipe: {},
+        id: ''
+      }
+    },
+    created() {
+      const route = useRoute();
+      this.id = route.params.id;
+      this.fetchRecipe();
+    },
+    computed: {
+      ...mapStores(useAuthStore)
+    },
+  methods: {
+    fetchRecipe() {
+      let url = "/api/recipes/" + this.id;
+      
+      fetch(url, {})
+          .then(response => response.json())
+          .then(data => {
+            this.recipe = data;
+          })
+          .catch(error => console.log('error', error))
+    }
+  }
 }
 </script>
 
 <template>
 
-  <section class="container">
+<section class="container">
+    <article>
+      <h1 class="fontbold">{{ recipe.title }}</h1>
+      <img :src="`${recipe.imagePath}`">
+      <h4 class="fontbold">Summary</h4>
+      <p class="textfont">{{ recipe.summary }}</p>
+
+      <h4 class="fontbold">Ingredients</h4>
+      <ul>
+        <li v-for="ingredient of recipe.ingredients">{{ ingredient.name }}</li>
+      </ul>
+      <h4 class="fontbold">Method</h4>
+
+      <p class="textfont">{{ recipe.content }}</p>
+      <div v-if="authStore.isAuthenticated">
+        <a class="myButton" href="#">Edit Recipe</a>
+      </div>
+
+      <hr>
+      <div>
+        <h4 class="h4_comment">Comments</h4>
+        <div>
+          <h5>Comment date and by whom</h5>
+          <p>Body - Comment text</p>
+          <p></p>
+        </div>
+      </div>
+
+      <div class="container_buttons">
+        <a class="myButton_delete" href="#" v-if="authStore.isAuthenticated">Delete Comment</a>
+
+        <!-- v-if="`${authStore.isAuthenticated} && ${this.recipe.user.id} == ${authStore.id}`" -->
+        <a class="myButton_comment" href="#">Comment Recipe</a>
+      </div>
+
+
+      <hr>
+      <div class="bottomlinks">
+        <a href="#top">Back to top of page</a>
+        <router-link :to="{ name: 'Recipes' }">Back to recipes</router-link>
+      </div>
+      <hr>
+    </article>
+  </section>
+
+
+<!-- STATIC -->
+  <!-- <section class="container">
     <article>
       <h1 class="fontbold">Biscuit Eggs</h1>
       <img src="../images/BiscuitEggs.png">
@@ -98,7 +173,7 @@ export default {
       </div>
       <hr>
     </article>
-  </section>
+  </section> -->
 
 </template>
 

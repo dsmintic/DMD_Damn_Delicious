@@ -1,7 +1,44 @@
+<script>
+import { defineComponent } from "vue";
+import { mapStores } from "pinia";
+import { useAuthStore } from "@/store/auth";
+
+export default defineComponent({
+  name: "RecipesAll",
+  data() {
+    return {
+      recipes: []
+    }
+  },
+  created() {
+    this.fetchRecipes();
+  },
+  computed: {
+    ...mapStores(useAuthStore)
+  },
+  methods: {
+    fetchRecipes() {
+      fetch('/api/recipes', {})
+          .then(response => response.json())
+          .then(data => {
+            this.recipes = data;
+          })
+          .catch(error => console.log('error', error))
+    }
+  }
+});
+</script>
+
 <template>
     <section class="container">
+        <article v-for="recipe of recipes">
+          <h1 class="fontbold"><router-link :to="`recipe/${recipe.id}`">{{ recipe.title }}</router-link></h1>
+          <img v-bind:src="recipe.imagePath">
+          <p class="textfont">{{ recipe.content }}</p>
+        </article>
         <article>
-            <h1 class="fontbold"><router-link :to="{ name: 'Recipe' }">Biscuit Eggs</router-link></h1>
+            <!-- <h1 class="fontbold"><router-link :to="{ name: 'Recipe' }">Biscuit Eggs</router-link></h1> -->
+            <h1 class="fontbold"><router-link to="/recipe/1">Biscuit Eggs</router-link></h1>
             <img src="../images/BiscuitEggs.png">
             <p class="textfont">The butterless biscuits for these Benedicts are perfect for kids to make because they
                 are so simple. </p>
