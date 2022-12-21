@@ -37,6 +37,7 @@ export default defineComponent({
 
   <section class="container">
     <article>
+      <h1>Sign in</h1>
       <form id="formSignin" @submit.prevent="login" v-if="!authStore.isAuthenticated">
         
         <p class="fontbold">Username</p>
@@ -61,7 +62,7 @@ export default defineComponent({
 
       <p class="fontbold"><label>Don't have an account?</label></p>
       
-      <p class="fontbold"><router-link :to="{ name: 'Register' }">Register</router-link>
+      <p class="fontbold"><router-link :to="{ name: 'Register' }" id="register">Register</router-link>
       <ErrorMessage v-if="error?.message" :error="error" /></p>
       
 
@@ -83,12 +84,14 @@ export default defineComponent({
   margin-bottom: 20px;
   background-color: #FFF6ED;
   width: 470px;
-  margin-left: 75px;
 }
 
 .container article h1 {
+  display: flex;
+  justify-content: center;
   font-size: medium;
   background-color: #FFF6ED;
+  color: #FDB9FF;
 }
 
 .container article p {
@@ -147,6 +150,14 @@ export default defineComponent({
   font-weight: 100;
   padding: 10px;
   margin: 0;
+}
+
+#register {
+  color: #FF9F68;
+}
+
+#register:hover{
+  color: #B9DEFF;
 }
 
 .container_buttons {
