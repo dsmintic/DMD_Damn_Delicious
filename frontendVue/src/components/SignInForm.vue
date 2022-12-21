@@ -20,8 +20,8 @@ export default defineComponent({
   methods: {
     login() {
       this.authStore.login(this.user)
-          .then(() => this.$router.push({ name: 'Home' }))
-          .catch(error => this.error = { message: "Login failed." })
+        .then(() => this.$router.push({ name: 'Home' }))
+        .catch(error => this.error = { message: "Login failed." })
     },
   },
   computed: {
@@ -34,38 +34,150 @@ export default defineComponent({
 </script>
 
 <template>
-  <form @submit.prevent="login" v-if="!authStore.isAuthenticated">
-    <fieldset>
-      <label for="username">
-        <span>Username</span>
-        <input type="text" id="username" autocomplete="username" v-model="user.username">
-      </label>
 
-      <label for="password">
-        <span>Password</span>
-        <input type="password" id="password" autocomplete="current-password" v-model="user.password">
-      </label>
+  <section class="container">
+    <article>
+      <form id="formSignin" @submit.prevent="login" v-if="!authStore.isAuthenticated">
+        
+        <p class="fontbold">Username</p>
+        <p>
+          <label for="username">
+            <input type="text" id="username" autocomplete="username" class="textarea" v-model="user.username">
+          </label>
+        </p>
 
-      <button type="submit" :disabled="!valid">Login</button>
-    </fieldset>
-  </form>
-  <label>Don't have an account?</label><router-link :to="{ name: 'Register' }">Register</router-link>
-  <ErrorMessage v-if="error?.message" :error="error"/>
+        <p class="fontbold">Password</p>
+        <p>
+          <label for="password">
+            <input type="password" id="password" autocomplete="current-password" class="textarea" v-model="user.password">
+          </label>
+        </p>
+
+        <div class="container_buttons">
+          <button class="myButton" type="submit" :disabled="!valid">Login</button>
+        </div>
+        
+      </form>
+
+      <p class="fontbold"><label>Don't have an account?</label></p>
+      
+      <p class="fontbold"><router-link :to="{ name: 'Register' }">Register</router-link>
+      <ErrorMessage v-if="error?.message" :error="error" /></p>
+      
+
+    </article>
+  </section>
 </template>
 
 <style scoped>
-fieldset {
-  border: 0;
+
+.container {
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
 }
 
-fieldset > label {
-  display: block;
-  width: 10rem;
-  margin-bottom: 1rem;
+.container article {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  background-color: #FFF6ED;
+  width: 470px;
+  margin-left: 75px;
 }
 
-label > span {
-  display: block;
-  margin-bottom: 0.2rem;
+.container article h1 {
+  font-size: medium;
+  background-color: #FFF6ED;
+}
+
+.container article p {
+  font-size: medium;
+  display: flex;
+  justify-content: center;
+}
+
+
+
+:focus-visible {
+  outline-color: #B9DEFF;
+  outline-offset: 3px;
+  border-color: #FFDAB9;
+  border-style: solid;
+}
+
+#formSignin input[type=text],
+#formSignin input[type=password] {
+  width: 100%;
+  background-color: white;
+  height: 25px;
+  border: transparent;
+  box-shadow: inset 2px 2px 2px grey, 0 -1px 1px white;
+  vertical-align: top;
+  
+}
+
+#formSignin textarea {
+  height: 200px;
+  resize: none;
+  border: 3px solid transparent;
+  box-shadow: inset 2px 2px 2px grey, 0 -1px 1px white;
+  background-color: white;
+  width: 80%;
+}
+
+
+.error {
+  background-color: #FDB9FF;
+}
+
+#formSignin label {
+  display: inline-block;
+  width: 200px;
+  text-align: left;
+  display: flex;
+  justify-content: center;
+}
+
+.fontbold {
+  font-weight: 700;
+}
+
+.textfont {
+  font-weight: 100;
+  padding: 10px;
+  margin: 0;
+}
+
+.container_buttons {
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+  margin-bottom: 0;
+}
+
+.myButton {
+  box-shadow: 0px 10px 14px -7px #276873;
+  margin-top: 5px;
+  background-color: #B9DEFF;
+  border-radius: 8px;
+  cursor: pointer;
+  color: black;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 10px 20px;
+  text-decoration: none;
+  border: none;
+}
+
+.myButton:hover {
+  background-color: #FFDAB9;
+  color: white;
+}
+
+.myButton:active {
+  position: relative;
+  top: 2px;
 }
 </style>
