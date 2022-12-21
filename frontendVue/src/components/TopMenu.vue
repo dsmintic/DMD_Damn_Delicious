@@ -35,7 +35,7 @@ export default defineComponent({
 
         <div>
             <router-link :to="{ name: 'AddRecipe' }" v-if="authStore.isAuthenticated">Add recipe</router-link>
-            <label>{{ authStore.username }}</label>
+            <label id="usercolor">{{ authStore.username }}</label>
             <router-link :to="{ name: 'SignIn' }" v-if="!authStore.isAuthenticated">Sign in</router-link>
             <Logout></Logout>
         </div>
@@ -76,6 +76,10 @@ export default defineComponent({
     width: 125px;
     padding: 0;
     margin: 0;
+}
+
+#usercolor {
+    color: #FF9F68;
 }
 </style>
 
