@@ -120,7 +120,7 @@ public class RecipeControllerRest {
             return new ResponseEntity<>(imagePath, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        imagePath = imagePath.replace("frontendVue/src", "..");
+        imagePath = imagePath.replace("frontendVue/src", "/src");
 
         return new ResponseEntity<>(imagePath, HttpStatus.OK);
     }

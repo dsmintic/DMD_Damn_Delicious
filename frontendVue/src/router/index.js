@@ -15,7 +15,7 @@ import ChefDamirView from '../views/ChefDamirView.vue'
 const routes = [
   { path:'/', name:'Home', component:HomeView},
   { path:'/recipes', name:'Recipes', component:RecipesView},
-  { path:'/recipe', name:'Recipe', component:RecipeView},
+  { path:'/recipe/:id', name:'Recipe', component:RecipeView},
   { path:'/video', name:'Video', component: VideoRecipesView},
   { path:'/signin', name:'SignIn', component: SignInView},
   { path:'/register', name:'Register', component: RegisterView},
