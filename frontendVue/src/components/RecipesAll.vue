@@ -36,12 +36,17 @@ export default defineComponent({
           <img v-bind:src="recipe.imagePath">
           <p class="textfont">{{ recipe.content }}</p>
         </article>
+
+
         <article>
             <!-- <h1 class="fontbold"><router-link :to="{ name: 'Recipe' }">Biscuit Eggs</router-link></h1> -->
             <h1 class="fontbold"><router-link to="/recipe/1">Biscuit Eggs</router-link></h1>
+            <p class="rating">Rating</p>
             <img src="../images/BiscuitEggs.png">
             <p class="textfont">The butterless biscuits for these Benedicts are perfect for kids to make because they
                 are so simple. </p>
+                <p class="created">Created by:</p>
+                <p class="created">Created on:</p>
         </article>
         <article>
             <h1 class="fontbold">5 - Minute Yoghurt and Fruit</h1>
@@ -238,6 +243,20 @@ export default defineComponent({
 .container article p {
     font-size: medium;
     background-color: #FFF6ED;
+    margin: 0px;
+    
+}
+
+.created {
+    margin: 0px;
+    text-align: right;
+    background-color: #FFF6ED;
+}
+
+.rating {
+    margin: 0px;
+    text-align: left;
+    background-color: #FFDAB9!important;
 }
 
 
