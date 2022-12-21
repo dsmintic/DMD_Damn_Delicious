@@ -244,7 +244,6 @@ export default defineComponent({
     font-size: medium;
     background-color: #FFF6ED;
     margin: 0px;
-    
 }
 
 .created {
