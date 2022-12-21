@@ -30,7 +30,7 @@ export default defineComponent({
             <router-link :to="{name:'Recipes'}">Recipes</router-link>
             <router-link to="#">Cook Calculator</router-link>
             <router-link :to="{ name: 'Video' }">Videos</router-link>
-            <router-link to="#">Chefs</router-link>
+            <router-link :to="{ name: 'Chefs' }">Chefs</router-link>
 
         </div>
 
