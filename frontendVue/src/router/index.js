@@ -7,6 +7,10 @@ import VideoRecipesView from '../views/VideoRecipesView.vue';
 import SignInView from '../views/SignInView.vue';
 import RegisterView from '../views/RegisterView.vue';
 import AddRecipeView from '../views/AddRecipeView.vue';
+import ChefsView from '../views/ChefsView.vue'
+import ChefMarijaView from '../views/ChefMarijaView.vue'
+import ChefDennisView from '../views/ChefDennisView.vue'
+import ChefDamirView from '../views/ChefDamirView.vue'
 
 const routes = [
   { path:'/', name:'Home', component:HomeView},
@@ -16,6 +20,10 @@ const routes = [
   { path:'/signin', name:'SignIn', component: SignInView},
   { path:'/register', name:'Register', component: RegisterView},
   { path:'/addrecipe', name:'AddRecipe', component: AddRecipeView},
+  { path:'/chefs', name:'Chefs', component: ChefsView},
+  { path:'/chefMarija', name:'Marija', component: ChefMarijaView},
+  { path:'/chefDennis', name:'Dennis', component: ChefDennisView},
+  { path:'/chefDamir', name:'Damir', component: ChefDamirView},
   
 
 
