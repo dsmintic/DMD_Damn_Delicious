@@ -51,7 +51,7 @@ public class RecipeControllerRest {
                ingredients1.add(ingredientsService.getIngredientById(ingredient.getId()));
             }
 
-            Recipe recipe1 = recipeService.saveRecipe(new Recipe(recipe.getTitle(), recipe.getSummary(), recipe.getContent(), user, ingredients1));
+            Recipe recipe1 = recipeService.saveRecipe(new Recipe(recipe.getTitle(), recipe.getSummary(), recipe.getContent(), recipe.getImagePath(), user, ingredients1));
             return new ResponseEntity<>(recipe1 ,HttpStatus.CREATED);
         }catch (Exception e){
             return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);

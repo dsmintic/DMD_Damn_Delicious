@@ -13,7 +13,8 @@ export default defineComponent({
         title: '',
         summary: '',
         content: '',
-        ingredients: []
+        ingredients: [],
+        imagePath: ''
       },
       error: null,
       isLoggedIn: false,
@@ -39,12 +40,7 @@ export default defineComponent({
     },
   },
   methods: {
-    login() {
-      this.authStore.login(this.user)
-          .then(() => this.$router.push({ name: 'Home' }))
-          .catch(error => this.error = { message: "Login failed." })
-    },
-    addRecipe() {
+    async addRecipe() {
 
         const url = `/api/recipes/${this.authStore.id}`;
 
@@ -58,28 +54,28 @@ export default defineComponent({
 
         let formData = new FormData();
 
-        //formData.append( 'method', this.form.method );
         formData.append( 'image', this.image );
 
-    fetch( '/api/recipes/upload', {
-    method: 'POST',
-    headers: {
-        //'Content-Type': 'multipart/form-data'
-    },
-    body: formData
-} )
-.then( response => {
-    if (!response.ok){
-                return Promise.reject("Page does not exist");
-            } else {
-                return response.text();
-            }
-})
-.then(answer => {
-            console.log(answer);
+        await fetch( '/api/recipes/upload', {
+            method: 'POST',
+            headers: {
+                //'Content-Type': 'multipart/form-data'
+            },
+            body: formData
         })
-.catch(error => console.log("An error has appered: " + error));
-
+        .then( response => {
+            if (!response.ok){
+                        return Promise.reject("Page does not exist");
+                    } else {
+                        return response.text();
+                    }
+        })
+        .then(answer => {
+                    this.recipe.imagePath = answer;
+                })
+        .catch(error => console.log("An error has appered: " + error));
+        
+        console.log(this.recipe.imagePath);
 
         //////////image end
         
@@ -92,7 +88,8 @@ export default defineComponent({
                 title: this.recipe.title.trim(),
                 summary: this.recipe.summary,
                 content: this.recipe.content,
-                ingredients: this.recipe.ingredients
+                ingredients: this.recipe.ingredients,
+                imagePath: this.recipe.imagePath
             })
         })
         .then(response => {
