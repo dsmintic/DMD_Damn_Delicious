@@ -1,6 +1,5 @@
 package com.example.dmd_damn_delicious.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -39,6 +38,11 @@ public class Recipe {
     @NotNull
     private String content;
 
+    @NotEmpty (message = "Content can't be empty.")
+    @Column  (name = "image_path")
+    @NotNull
+    private String imagePath;
+
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
     @Column
@@ -67,10 +71,11 @@ public class Recipe {
     public Recipe() {
     }
 
-    public Recipe(String title, String summary, String content, User user, Set<Ingredient> ingredients) {
+    public Recipe(String title, String summary, String content, String imagePath, User user, Set<Ingredient> ingredients) {
         this.title = title;
         this.summary = summary;
         this.content = content;
+        this.imagePath = imagePath;
         this.user = user;
         this.ingredients = ingredients;
     }
@@ -131,6 +136,14 @@ public class Recipe {
         this.updateDate = updateDate;
     }
 
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
     @Override
     public String toString() {
         return "Recipe{" +
@@ -138,9 +151,11 @@ public class Recipe {
                 ", title='" + title + '\'' +
                 ", summary='" + summary + '\'' +
                 ", content='" + content + '\'' +
+                ", imagePath='" + imagePath + '\'' +
                 ", creationDate=" + creationDate +
                 ", updateDate=" + updateDate +
                 ", user=" + user +
+                ", ingredients=" + ingredients +
                 '}';
     }
 }
