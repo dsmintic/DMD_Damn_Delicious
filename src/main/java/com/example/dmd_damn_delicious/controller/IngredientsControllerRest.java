@@ -18,14 +18,10 @@ import java.util.List;
 public class IngredientsControllerRest {
 
     private final IngredientsService ingredientsService;
-    private final FileService fileService;
 
-    @Value("${project.image}")
-    private String path;
     @Autowired
-    public IngredientsControllerRest(IngredientsService ingredientsService, FileService fileService) {
+    public IngredientsControllerRest(IngredientsService ingredientsService) {
         this.ingredientsService = ingredientsService;
-        this.fileService = fileService;
     }
 
     @PostMapping("/ingredients")
@@ -82,20 +78,6 @@ public class IngredientsControllerRest {
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
-
-    @PostMapping("/ingredients/upload")
-    public ResponseEntity<String> fileUpload(@RequestParam("image")MultipartFile image) {
-        String fileName = null;
-        try {
-            fileName = this.fileService.uploadImage(path, image);
-        } catch (IOException e) {
-            return new ResponseEntity<>(fileName, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        String proba = path + fileName;
-        proba = proba.replace("frontendVue/src", "..");
-        System.out.println(proba);
-        return new ResponseEntity<>(fileName, HttpStatus.OK);
     }
 
 }
