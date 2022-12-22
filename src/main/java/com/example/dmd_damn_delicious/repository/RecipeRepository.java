@@ -13,6 +13,8 @@ import java.util.Optional;
     public interface RecipeRepository extends JpaRepository<Recipe, Long> {
         List<Recipe> findById(String title);
 
+        List<Recipe> findAllByOrderByCreationDateDesc();
+
 
     //Optional<Recipe> findById(long id);
 

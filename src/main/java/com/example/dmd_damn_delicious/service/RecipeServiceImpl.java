@@ -41,4 +41,9 @@ public class  RecipeServiceImpl implements RecipeService {
     public List<Recipe> getAllRecipes() {
         return this.recipeRepository.findAll();
     }
+
+    @Override
+    public List<Recipe> getAllRecipesByCreationDate() {
+        return recipeRepository.findAllByOrderByCreationDateDesc();
+    }
 }

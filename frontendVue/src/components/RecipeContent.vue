@@ -11,7 +11,8 @@ export default {
         },
         recipe: {},
         id: '',
-        comments: []
+        comments: [],
+        showEdit: []
       }
     },
     created() {
@@ -103,6 +104,26 @@ export default {
       //     // })
       //     .catch(error => console.log('error', error))
       this.fetchComments();
+    },
+    async editComment(index) {
+
+      let url = "/api/comments/" + this.comments[index].id;
+
+      let response = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    text: this.comments[index].text
+                })
+            }).catch(error => console.log('error', error));
+
+      this.showEditChange(index);
+
+    },
+    showEditChange(index) {
+      this.showEdit[index] = !this.showEdit[index];
     }
   }
 }
@@ -140,10 +161,29 @@ export default {
               <small>Created by: {{ comment.user.username }}</small>
             </div>
             <div class="commentButtonsWrapper" v-if="authStore.isAuthenticated && authStore.id == comment.user.id || authStore.admin">
-              <button class="myButton_edit" v-if="authStore.isAuthenticated">Edit</button>
+              <button class="myButton_edit" v-if="authStore.isAuthenticated" @click="showEditChange(index)">Edit</button>
               <button class="myButton_delete" v-if="authStore.isAuthenticated" @click="deleteComment(index)">Delete</button>
             </div>
             
+            <section class="commentContainer" v-if="authStore.isAuthenticated && authStore.id == comment.user.id || authStore.admin" v-show="showEdit[index]">
+            <article>
+                <h1 class="fontbold">Write new comment</h1>
+                <form id="formRecipe" @submit.prevent="editComment(index)">
+
+
+                    <p><label for="title"></label>
+                        <textarea class="textarea" placeholder="Please edit comment." rows="5" v-model="comment.text"></textarea>
+                    </p>
+
+                    <div class="container_buttons">
+                        <p><input class="commentButton" type="submit" value="Save comment"></p>
+                    </div>
+
+                </form>
+            </article>
+          </section>
+
+
           </article>
           <!-- comment form -->
           <section class="commentContainer" v-if="authStore.isAuthenticated">
@@ -153,7 +193,7 @@ export default {
 
 
                     <p><label for="title"></label>
-                        <textarea class="textarea" placeholder="Please enter a comment on the recipe" rows="5" v-model="comment.text"></textarea>
+                        <textarea class="textarea" placeholder="Comment this recipe..." rows="5" v-model="comment.text"></textarea>
                     </p>
 
                     <div class="container_buttons">
@@ -200,7 +240,7 @@ export default {
 .container article p {
 
   font-size: medium;
-  background-color: #FFF6ED;
+  /* background-color: #FFF6ED; */
 }
 
 .container article a {
@@ -403,7 +443,8 @@ textarea {
     overflow: hidden;
     display: flex;
     justify-content: center;
-
+    background-color: #FFDAB9!important;
+    margin-top: 10px;
 }
 
 .commentContainer article {
@@ -519,7 +560,7 @@ textarea {
 }
 
 .commentsContainer p {
-  background-color: #FFDAB9!important;
+  /* background-color: #FFF6ED!important; */
   margin: 0;
 }
 

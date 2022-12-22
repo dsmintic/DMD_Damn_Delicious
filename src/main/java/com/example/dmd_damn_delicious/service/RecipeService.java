@@ -20,4 +20,6 @@ public interface RecipeService {
     void deleteRecipeById(long id);
 
     List<Recipe> getAllRecipes();
+
+    List<Recipe> getAllRecipesByCreationDate();
 }
