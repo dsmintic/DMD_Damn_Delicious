@@ -14,6 +14,7 @@ import ChefDamirView from '../views/ChefDamirView.vue'
 import AddCommentView from '../views/AddCommentView.vue'
 import EditCommentView from '../views/EditCommentView.vue'
 import EditRecipeView from '../views/EditRecipeView.vue'
+import CalculatorView from '../views/CalculatorView.vue';
 
 const routes = [
   { path:'/', name:'Home', component:HomeView},
@@ -30,6 +31,7 @@ const routes = [
   { path:'/addcomment', name:'Add_Comment', component: AddCommentView},
   { path:'/editcomment', name:'Edit_Comment', component: EditCommentView},
   { path:'/recipe/editrecipe/:id', name:'Edit_Recipe', component: EditRecipeView},
+  { path:'/calculator', name:'Calculator', component: CalculatorView},
   
 
 

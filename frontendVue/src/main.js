@@ -15,8 +15,9 @@ import { faTiktok } from '@fortawesome/free-brands-svg-icons'
 import { faMapLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { faPhone } from '@fortawesome/free-solid-svg-icons'
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons'
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faUserSecret, faFacebook, faInstagram, faTiktok, faMapLocationDot, faPhone, faEnvelope )
+library.add(faUserSecret, faFacebook, faInstagram, faTiktok, faMapLocationDot, faPhone, faEnvelope, faStar )
 
 const app = createApp(App)
 .component('font-awesome-icon', FontAwesomeIcon)
