@@ -238,9 +238,7 @@ export default {
 }
 
 .container article p {
-
   font-size: medium;
-  /* background-color: #FFF6ED; */
 }
 
 .container article a {
@@ -321,12 +319,12 @@ textarea {
   color: black;
   font-size: 20px;
   font-weight: bold;
-  padding: 13px 25px;
+  padding: 10px 20px;
   text-decoration: none;
 }
 
 .myButton:hover {
-  background-color: #FFDAB9;
+  background-color: #FDB9FF;
   color: white;
 }
 
@@ -352,14 +350,15 @@ textarea {
   cursor: pointer;
   color: black;
   font-size: 20px;
+  font-size: medium;
   font-weight: bold;
-  padding: 13px 25px;
+  padding: 5px 10px;
   text-decoration: none;
   border: none;
 }
 
 .myButton_edit:hover {
-  background-color: #FFDAB9;
+  background-color: #FF9F68;
   color: white;
 }
 
@@ -377,14 +376,15 @@ textarea {
   cursor: pointer;
   color: black;
   font-size: 20px;
+  font-size: medium;
   font-weight: bold;
-  padding: 13px 25px;
+  padding: 5px 10px;
   text-decoration: none;
   border: none;
 }
 
 .myButton_delete:hover {
-  background-color: #FFDAB9;
+  background-color: #FF9F68;
   color: white;
 }
 
@@ -536,6 +536,7 @@ textarea {
   justify-content: space-between;
   padding-top: 10px;
   padding-bottom: 10px;
+  font-size:0.7em;
 }
 
 .commentsWrapper {
@@ -546,6 +547,7 @@ textarea {
   display: flex;
   justify-content: end;
 }
+
 hr {
   border: 2px solid peachpuff;
 }
