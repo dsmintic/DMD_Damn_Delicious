@@ -3,10 +3,10 @@
 
     <!-- <router-link :to="{name:'Home'}"><img src="../images/dmd_logo.png" class="logoimage"></router-link> -->
 
-    <article>
+    <!-- <article>
       <p>Damir Šmintić</p>
-      <router-link :to="{name:'Damir'}"><img src="../images/Damir_chefs.png"></router-link>
-    </article>
+      <router-link :to="{name:'Damir'}"><img src="../images/D></router-link>
+    </article> -->
 
     <article>
       <p>Marija Mamić</p>
