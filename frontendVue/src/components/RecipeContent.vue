@@ -146,8 +146,8 @@ export default {
 
       <p class="textfont">{{ recipe.content }}</p>
       <hr>
-      <p class="created">Created by: {{ recipe.user.username }}</p>
-      <p class="created">Created on: {{ recipe.creationDate }}</p>
+      <p class="created">Published by: {{ recipe.user.username }}</p>
+      <p class="created">Published on: {{ recipe.creationDate }}</p>
 
       <div class="recipeButtonsWrapper" v-if="authStore.isAuthenticated">
         <router-link class="myButton"
@@ -169,7 +169,7 @@ export default {
             <p>{{ comment.text }}</p>
             <div class="commentPostedWrapper">
               <small>Posted on: {{ comment.creationDate }}</small>
-              <small>Created by: {{ comment.user.username }}</small>
+              <small>Posted by: {{ comment.user.username }}</small>
             </div>
             <div class="commentButtonsWrapper"
               v-if="authStore.isAuthenticated && authStore.id == comment.user.id || authStore.admin">

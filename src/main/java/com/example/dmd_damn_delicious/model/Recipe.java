@@ -8,6 +8,8 @@ import org.hibernate.annotations.CreationTimestamp;
 
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -120,16 +122,22 @@ public class Recipe {
         this.content = content;
     }
 
-    public LocalDateTime getCreationDate() {
-        return creationDate;
+    public String getCreationDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy. HH:mm")
+                .withZone(ZoneId.systemDefault());
+
+        return formatter.format(creationDate);
     }
 
     public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
     }
 
-    public LocalDateTime getUpdateDate() {
-        return updateDate;
+    public String getUpdateDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy. HH:mm")
+                .withZone(ZoneId.systemDefault());
+
+        return formatter.format(updateDate);
     }
 
     public void setUpdateDate(LocalDateTime updateDate) {

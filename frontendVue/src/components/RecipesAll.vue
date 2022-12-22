@@ -47,8 +47,8 @@ export default defineComponent({
             <img src="../images/BiscuitEggs.png">
             <p class="textfont">The butterless biscuits for these Benedicts are perfect for kids to make because they
                 are so simple. </p>
-                <p class="created">Created by:</p>
-                <p class="created">Created on:</p>
+                <p class="created">Published by:</p>
+                <p class="created">Published on:</p>
         </article>
         <article>
             <h1 class="fontbold">5 - Minute Yoghurt and Fruit</h1>
