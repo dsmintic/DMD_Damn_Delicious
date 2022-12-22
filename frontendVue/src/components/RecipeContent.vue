@@ -12,7 +12,13 @@ export default {
       recipe: {},
       id: '',
       comments: [],
-      showEdit: []
+      showEdit: [],
+      ratings:[],
+      rating: {
+        rating: 0,
+        userId: '',
+        recipeId: ''
+      }
     }
   },
   created() {
@@ -26,6 +32,7 @@ export default {
     //let res = await new Promise((resolve, reject) => this.fetchRecipe());
     this.fetchRecipe();
     this.fetchComments();
+    //this.fetchRating();
   },
   computed: {
     ...mapStores(useAuthStore),
@@ -50,6 +57,15 @@ export default {
         .then(response => response.json())
         .then(data => {
           this.comments = data;
+        })
+        .catch(error => console.log('error', error))
+    },
+    fetchRating() {
+      let url = "api/ratings/r/" + this.id;
+      fetch(url, {})
+        .then(response => response.json())
+        .then(data => {
+          this.ratings = data;
         })
         .catch(error => console.log('error', error))
     },
@@ -122,6 +138,25 @@ export default {
       this.showEditChange(index);
 
     },
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
+    getRating() {
+
+      let sum = 0;
+      let count = 0;
+
+      for (let rating in this.ratings) {
+          sum += rating.rating;
+          count++;
+      }
+
+      if (count == 0) {
+          return 0;
+      }
+
+      return Math.ceil(sum/count);
+},
     showEditChange(index) {
       this.showEdit[index] = !this.showEdit[index];
     }
@@ -135,9 +170,9 @@ export default {
     <article>
       <h1 class="fontbold">{{ recipe.title }}</h1>
       <img :src="`${recipe.imagePath}`">
-      <div class="ratingContainer">
-          <!-- <font-awesome-icon class="star" icon="fa-solid fa-star" v-for="i in getRating(recipe.id)" /> -->
-      </div>
+      <!-- <div class="ratingContainer">
+          <font-awesome-icon class="star" icon="fa-solid fa-star" v-for="i in getRating()" />
+      </div> -->
       <h4 class="fontbold">Summary</h4>
       <p class="textfont">{{ recipe.summary }}</p>
 
@@ -229,7 +264,7 @@ export default {
 
       <hr>
       <div class="bottomlinks">
-        <a href="#top">Back to top of page</a>
+        <p id="topLink" @click="scrollToTop">Back to top of page</p>
         <router-link :to="{ name: 'Recipes' }">Back to recipes</router-link>
       </div>
       <hr>
@@ -242,7 +277,7 @@ export default {
 .container {
   overflow: hidden;
   display: flex;
-  max-width: 70%;
+  max-width: 55%;
   justify-content: space-around;
   align-items: flex-start;
   margin: auto;
@@ -615,5 +650,16 @@ hr {
 
 .ratingContainer {
   display: flex;
+  justify-content: space-between;
+}
+
+#topLink {
+  font-size: medium;
+  font-weight: bold;
+}
+
+#topLink:hover {
+  cursor: pointer;
+  color:  #FF9F68;
 }
 </style>
