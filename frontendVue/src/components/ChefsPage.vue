@@ -3,19 +3,19 @@
 
     <!-- <router-link :to="{name:'Home'}"><img src="../images/dmd_logo.png" class="logoimage"></router-link> -->
 
-    <!-- <article>
-      <p>Damir Šmintić</p>
-      <router-link :to="{name:'Damir'}"><img src="../images/D></router-link>
-    </article> -->
-
     <article>
-      <p>Marija Mamić</p>
-      <router-link :to="{name:'Marija'}"><img src="../images/Marija_chefs.png"></router-link>
+      <p>Denis Križak</p>
+      <router-link :to="{name:'Dennis'}"><img src="../images/Denis.png"></router-link>
     </article>
 
     <article>
-      <p>Denis Križak</p>
-      <router-link :to="{name:'Dennis'}"><img src="../images/Denis_chefs.png"></router-link>
+      <p>Marija Mamić</p>
+      <router-link :to="{name:'Marija'}"><img src="../images/Marija.png"></router-link>
+    </article>
+
+    <article>
+      <p>Damir Šmintić</p>
+      <router-link :to="{name:'Damir'}"><img src="../images/Damir_chef_2.png"></router-link>
     </article>
   </section>
 </template>
@@ -38,14 +38,15 @@
 }
 
 .container article img {
-  width: 50%;
+  width: 100%;
   display: block;
   margin: auto;
-  border: 2px solid black;
+  border: 2px solid #FF9F68;
 }
 
 .container article p {
   font-size: 700;
+  color: #FF9F68;
 }
 
 .container a {

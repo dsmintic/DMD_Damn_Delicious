@@ -34,9 +34,8 @@
 <style scoped>
 .container {
     overflow: hidden;
-    /* display: flex; */
-    /* justify-content: space-between; */
-    /* justify-content: center; */
+    display: flex;
+    justify-content: space-between;
     align-items: flex-start;
 
 }
@@ -64,27 +63,9 @@
 }
 
 .container article p {
-    font-size: 400;
+    font-size: medium;
     margin-top: 0px;
     margin-left: 15px;
     margin-right: 15px;
-}
-
-.container a {
-    margin: 0;
-    padding: 0;
-}
-
-.fontbold {
-    background-color: peachpuff;
-    padding: 20px;
-    font-weight: 700;
-    margin: 0;
-}
-
-.textfont {
-    font-weight: 100;
-    padding: 10px;
-    margin: 0;
 }
 </style>
