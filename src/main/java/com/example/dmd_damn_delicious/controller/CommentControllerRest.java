@@ -105,7 +105,7 @@ public class CommentControllerRest {
     public ResponseEntity<HttpStatus> deleteComment(@PathVariable("id") long id){
         try {
             commentService.deleteCommentById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

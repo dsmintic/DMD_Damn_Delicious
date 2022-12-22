@@ -102,7 +102,7 @@ public class RatingControllerRest {
     public ResponseEntity<HttpStatus> deleteRating(@PathVariable("id") long id){
         try {
             ratingService.deleteRatingById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

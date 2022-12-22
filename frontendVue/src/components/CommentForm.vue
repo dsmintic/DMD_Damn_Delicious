@@ -1,21 +1,27 @@
 <script>
-
+export default {
+    data(){
+      return {
+        commentText: ''
+      }
+    }
+}
 </script>
 
 <template>
 
-    <section class="container">
+    <section class="commentContainer">
         <article>
             <h1 class="fontbold">Write new comment</h1>
             <form id="formRecipe">
 
 
                 <p><label for="title"></label>
-                    <textarea class="textarea" placeholder="Please enter a comment on the recipe" rows="5"></textarea>
+                    <textarea class="textarea" placeholder="Please enter a comment on the recipe" rows="5" v-model="commentText"></textarea>
                 </p>
 
                 <div class="container_buttons">
-                    <p><input class="myButton" type="submit" value="Add comment"></p>
+                    <p><input class="commentButton" type="submit" value="Add comment" @click="$emit('addComment', commentText)"></p>
                 </div>
 
             </form>
@@ -25,14 +31,14 @@
 </template>
 
 <style scoped>
-.container {
+.commentContainer {
     overflow: hidden;
     display: flex;
     justify-content: center;
 
 }
 
-.container article {
+.commentContainer article {
     margin-left: 10px;
     margin-right: 10px;
     margin-bottom: 20px;
@@ -40,12 +46,12 @@
     width: 1000px;
 }
 
-.container article h1 {
+.commentContainer article h1 {
     font-size: medium;
     background-color: #FFF6ED;
 }
 
-.container article p {
+.commentContainer article p {
     font-size: medium;
 }
 
@@ -108,7 +114,7 @@
     margin-bottom: 0;
 }
 
-.myButton {
+.commentButton {
     box-shadow: 0px 10px 14px -7px #276873;
     margin-top: 5px;
     background-color: #B9DEFF;
@@ -122,12 +128,12 @@
     border: none;
 }
 
-.myButton:hover {
+.commentButton:hover {
     background-color: #FFDAB9;
     color: white;
 }
 
-.myButton:active {
+.commentButton:active {
     position: relative;
     top: 2px;
 }
