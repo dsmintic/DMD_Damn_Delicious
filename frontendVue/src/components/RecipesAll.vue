@@ -32,9 +32,11 @@ export default defineComponent({
 <template>
     <section class="container">
         <article v-for="recipe of recipes">
-          <h1 class="fontbold"><router-link :to="`recipe/${recipe.id}`">{{ recipe.title }}</router-link></h1>
-          <img v-bind:src="recipe.imagePath">
-          <p class="textfont">{{ recipe.content }}</p>
+            <h1 class="fontbold"><router-link :to="`recipe/${recipe.id}`">{{ recipe.title }}</router-link></h1>
+            <img v-bind:src="recipe.imagePath">
+            <p class="textfont">{{ recipe.content }}</p>
+            <p class="created">Created by: {{ recipe.user.username }}</p>
+            <p class="created">Created on: {{ recipe.creationDate }}</p>
         </article>
 
 

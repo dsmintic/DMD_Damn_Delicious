@@ -71,7 +71,7 @@ public class RecipeControllerRest {
     @GetMapping("/recipes")
     public ResponseEntity<List<Recipe>> getAllRecipes(){
         try {
-            List<Recipe> recipes = recipeService.getAllRecipes();
+            List<Recipe> recipes = recipeService.getAllRecipesByCreationDate();
 
             if(recipes.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
