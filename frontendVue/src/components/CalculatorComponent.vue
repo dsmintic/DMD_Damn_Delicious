@@ -176,9 +176,10 @@ fieldset {
 }
 
 .created {
-    margin-right: 10px;
+    margin-right: 5px;
     margin-top: 0px;
-    margin-bottom: 0px;
+    margin-bottom: 2px;
+    margin-left: 0px;
     text-align: right;
     background-color: #FFF6ED;
 }
