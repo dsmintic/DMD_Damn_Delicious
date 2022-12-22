@@ -7,11 +7,13 @@ export default defineComponent({
   name: "RecipesAll",
   data() {
     return {
-      recipes: []
+      recipes: [],
+      ratings: []
     }
   },
   created() {
     this.fetchRecipes();
+    this.fetchRatings();
   },
   computed: {
     ...mapStores(useAuthStore)
@@ -24,6 +26,32 @@ export default defineComponent({
             this.recipes = data;
           })
           .catch(error => console.log('error', error))
+    },
+    fetchRatings() {
+      fetch('/api/ratings', {})
+          .then(response => response.json())
+          .then(data => {
+            this.ratings = data;
+          })
+          .catch(error => console.log('error', error))
+    },
+    getRating(id) {
+
+        let sum = 0;
+        let count = 0;
+
+        for (let rating in this.ratings) {
+            if (rating.recipeId == id) {
+                sum += rating.rating;
+                count++;
+            }
+        }
+        
+        if (count == 0) {
+            return 0;
+        }
+
+        return Math.ceil(sum/count);
     }
   }
 });
@@ -33,8 +61,11 @@ export default defineComponent({
     <section class="container">
         <article v-for="recipe of recipes">
             <h1 class="fontbold"><router-link :to="`recipe/${recipe.id}`">{{ recipe.title }}</router-link></h1>
+            <div class="ratingContainer">
+                <font-awesome-icon class="star" icon="fa-solid fa-star" v-for="i in getRating(recipe.id)" />
+            </div>
             <img v-bind:src="recipe.imagePath">
-            <p class="textfont">{{ recipe.content }}</p>
+            <p class="textfont">{{ recipe.summary }}</p>
             <p class="created">Created by: {{ recipe.user.username }}</p>
             <p class="created">Created on: {{ recipe.creationDate }}</p>
         </article>
@@ -231,6 +262,7 @@ export default defineComponent({
     margin-right: 10px;
     margin-bottom: 20px;
     flex-basis: 23%;
+    background-color: peachpuff;
 }
 
 .container article h1 {
@@ -276,5 +308,16 @@ export default defineComponent({
 
 .hr {
     color: peachpuff;
+}
+
+.star {
+    font-size: 20px;
+    text-align: center;
+    margin: 5px;
+    color: #0C7EF3;
+}
+
+.ratingContainer {
+    text-align: center;
 }
 </style>

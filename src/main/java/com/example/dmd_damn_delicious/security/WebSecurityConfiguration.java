@@ -51,7 +51,7 @@ public class WebSecurityConfiguration /*extends WebSecurityConfigurerAdapter*/ {
         http
                 .authorizeHttpRequests()
                 .requestMatchers("/api/auth/register", "/api/auth/login", "/api/recipes/**", "/api/ingredients/**", "/api/recipes/upload",
-                        "/api/comments/**", "/api/comments/r/**").permitAll()
+                        "/api/comments/**", "/api/comments/r/**", "/api/ratings/**").permitAll()
                 .requestMatchers("/api/auth/**").authenticated()
                 .requestMatchers("/api/messages").authenticated()
                 .requestMatchers("/api/users/**").authenticated()
