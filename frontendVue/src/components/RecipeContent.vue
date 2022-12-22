@@ -4,54 +4,54 @@ import { useAuthStore } from "@/store/auth";
 import { useRoute } from 'vue-router';
 
 export default {
-    data(){
-      return {
-        comment: {
-          text: ''
-        },
-        recipe: {},
-        id: '',
-        comments: [],
-        showEdit: []
-      }
-    },
-    created() {
-      // const route = useRoute();
-      // this.id = route.params.id;
-      // this.fetchRecipe();
-    },
-    async beforeMount() {
-      const route = useRoute();
-      this.id = route.params.id;
-      //let res = await new Promise((resolve, reject) => this.fetchRecipe());
-      this.fetchRecipe();
-      this.fetchComments();
-    },
-    computed: {
-      ...mapStores(useAuthStore),
-      valid() {
-        return this.comment.text.trim().length > 0;
-      }
-    },
+  data() {
+    return {
+      comment: {
+        text: ''
+      },
+      recipe: {},
+      id: '',
+      comments: [],
+      showEdit: []
+    }
+  },
+  created() {
+    // const route = useRoute();
+    // this.id = route.params.id;
+    // this.fetchRecipe();
+  },
+  async beforeMount() {
+    const route = useRoute();
+    this.id = route.params.id;
+    //let res = await new Promise((resolve, reject) => this.fetchRecipe());
+    this.fetchRecipe();
+    this.fetchComments();
+  },
+  computed: {
+    ...mapStores(useAuthStore),
+    valid() {
+      return this.comment.text.trim().length > 0;
+    }
+  },
   methods: {
     fetchRecipe() {
       let url = "/api/recipes/" + this.id;
       fetch(url, {})
-          .then(response => response.json())
-          .then(data => {
-            this.recipe = data;
-          })
-          .catch(error => console.log('error', error))
+        .then(response => response.json())
+        .then(data => {
+          this.recipe = data;
+        })
+        .catch(error => console.log('error', error))
     },
     async fetchComments() {
       let url = "/api/comments/r/" + this.id;
       console.log(url);
       fetch(url, {})
-          .then(response => response.json())
-          .then(data => {
-            this.comments = data;
-          })
-          .catch(error => console.log('error', error))
+        .then(response => response.json())
+        .then(data => {
+          this.comments = data;
+        })
+        .catch(error => console.log('error', error))
     },
     addComment() {
       console.log(this.comment.text);
@@ -61,35 +61,35 @@ export default {
       console.log(url);
 
       fetch(url, {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    text: this.comment.text
-                })
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        return Promise.reject("Page does not exist");
-                    } else {
-                        return response.json();
-                    }
-                })
-                .then(answer => {
-                    this.fetchComments();
-                    this.comment.text = '';
-                    //this.$router.push({ name: 'Recipes' })
-                })
-                .catch(error => console.log("An error has appered: " + error));
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          text: this.comment.text
+        })
+      })
+        .then(response => {
+          if (!response.ok) {
+            return Promise.reject("Page does not exist");
+          } else {
+            return response.json();
+          }
+        })
+        .then(answer => {
+          this.fetchComments();
+          this.comment.text = '';
+          //this.$router.push({ name: 'Recipes' })
+        })
+        .catch(error => console.log("An error has appered: " + error));
     },
     async deleteComment(index) {
       let url = "/api/comments/" + this.comments[index].id;
 
-      let response1 = await fetch(url, {method: 'DELETE'})
-                  .catch(error => console.log('error', error));
-      
-      
+      let response1 = await fetch(url, { method: 'DELETE' })
+        .catch(error => console.log('error', error));
+
+
       // await fetch(url, {method: 'DELETE'})
       //     .then(response => {
       //       if (!response.ok) {
@@ -110,14 +110,14 @@ export default {
       let url = "/api/comments/" + this.comments[index].id;
 
       let response = await fetch(url, {
-                method: 'PUT',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    text: this.comments[index].text
-                })
-            }).catch(error => console.log('error', error));
+        method: 'PUT',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          text: this.comments[index].text
+        })
+      }).catch(error => console.log('error', error));
 
       this.showEditChange(index);
 
@@ -131,7 +131,7 @@ export default {
 
 <template>
 
-<section class="container">
+  <section class="container">
     <article>
       <h1 class="fontbold">{{ recipe.title }}</h1>
       <img :src="`${recipe.imagePath}`">
@@ -145,9 +145,20 @@ export default {
       <h4 class="fontbold">Method</h4>
 
       <p class="textfont">{{ recipe.content }}</p>
-      <div v-if="authStore.isAuthenticated">
-        <router-link class="myButton" v-if="authStore.isAuthenticated && authStore.id == recipe.user.id || authStore.admin" :to="`editrecipe/${recipe.id}`">Edit Recipe</router-link>
+      <hr>
+      <p class="created">Created by: {{ recipe.user.username }}</p>
+      <p class="created">Created on: {{ recipe.creationDate }}</p>
+
+      <div class="recipeButtonsWrapper" v-if="authStore.isAuthenticated">
+        <router-link class="myButton"
+          v-if="authStore.isAuthenticated && authStore.id == recipe.user.id || authStore.admin"
+          :to="`editrecipe/${recipe.id}`">Edit Recipe</router-link>
         <!-- <a class="myButton" href="#" v-if="authStore.isAuthenticated && authStore.id == recipe.user.id || authStore.admin">Edit Recipe</a> -->
+
+
+        <router-link class="myButton_del"
+          v-if="authStore.isAuthenticated && authStore.id == recipe.user.id || authStore.admin"
+          :to="`editrecipe/${recipe.id}`">Delete Recipe</router-link>
       </div>
 
       <hr>
@@ -160,50 +171,57 @@ export default {
               <small>Posted on: {{ comment.creationDate }}</small>
               <small>Created by: {{ comment.user.username }}</small>
             </div>
-            <div class="commentButtonsWrapper" v-if="authStore.isAuthenticated && authStore.id == comment.user.id || authStore.admin">
-              <button class="myButton_edit" v-if="authStore.isAuthenticated" @click="showEditChange(index)">Edit</button>
-              <button class="myButton_delete" v-if="authStore.isAuthenticated" @click="deleteComment(index)">Delete</button>
+            <div class="commentButtonsWrapper"
+              v-if="authStore.isAuthenticated && authStore.id == comment.user.id || authStore.admin">
+              <button class="myButton_edit" v-if="authStore.isAuthenticated"
+                @click="showEditChange(index)">Edit</button>
+              <button class="myButton_delete" v-if="authStore.isAuthenticated"
+                @click="deleteComment(index)">Delete</button>
             </div>
-            
-            <section class="commentContainer" v-if="authStore.isAuthenticated && authStore.id == comment.user.id || authStore.admin" v-show="showEdit[index]">
-            <article>
+
+            <section class="commentContainer"
+              v-if="authStore.isAuthenticated && authStore.id == comment.user.id || authStore.admin"
+              v-show="showEdit[index]">
+              <article>
                 <h1 class="fontbold">Write new comment</h1>
                 <form id="formRecipe" @submit.prevent="editComment(index)">
 
 
-                    <p><label for="title"></label>
-                        <textarea class="textarea" placeholder="Please edit comment." rows="5" v-model="comment.text"></textarea>
-                    </p>
+                  <p><label for="title"></label>
+                    <textarea class="textarea" placeholder="Please edit comment." rows="5"
+                      v-model="comment.text"></textarea>
+                  </p>
 
-                    <div class="container_buttons">
-                        <p><input class="commentButton" type="submit" value="Save comment"></p>
-                    </div>
+                  <div class="container_buttons">
+                    <p><input class="commentButton" type="submit" value="Save comment"></p>
+                  </div>
 
                 </form>
-            </article>
-          </section>
+              </article>
+            </section>
 
 
           </article>
           <!-- comment form -->
           <section class="commentContainer" v-if="authStore.isAuthenticated">
             <article>
-                <h1 class="fontbold">Write new comment</h1>
-                <form id="formRecipe" @submit.prevent="addComment">
+              <h1 class="fontbold">Write new comment</h1>
+              <form id="formRecipe" @submit.prevent="addComment">
 
 
-                    <p><label for="title"></label>
-                        <textarea class="textarea" placeholder="Comment this recipe..." rows="5" v-model="comment.text"></textarea>
-                    </p>
+                <p><label for="title"></label>
+                  <textarea class="textarea" placeholder="Comment this recipe..." rows="5"
+                    v-model="comment.text"></textarea>
+                </p>
 
-                    <div class="container_buttons">
-                        <p><input class="commentButton" type="submit" value="Add comment" :disabled="!valid"></p>
-                    </div>
+                <div class="container_buttons">
+                  <p><input class="commentButton" type="submit" value="Add comment" :disabled="!valid"></p>
+                </div>
 
-                </form>
+              </form>
             </article>
           </section>
-        </div>        
+        </div>
       </div>
 
       <hr>
@@ -309,6 +327,15 @@ textarea {
   resize: none;
 }
 
+.created {
+    margin-left: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: left;
+    font-weight:bold;
+    color: #FF9F68;
+}
+
 .myButton {
   box-shadow: 0px 10px 14px -7px #276873;
   margin-top: 5px;
@@ -324,13 +351,42 @@ textarea {
 }
 
 .myButton:hover {
-  background-color: #FDB9FF;
+  background-color: #FF9F68;
   color: white;
 }
 
 .myButton:active {
   position: relative;
   top: 2px;
+}
+
+.myButton_del {
+  box-shadow: 0px 10px 14px -7px #276873;
+  margin-top: 5px;
+  background-color: #FFB9BB;
+  border-radius: 8px;
+  display: inline-block;
+  cursor: pointer;
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+
+.myButton_del:hover {
+  background-color: #FF9F68;
+  color: white;
+}
+
+.myButton_del:active {
+  position: relative;
+  top: 2px;
+}
+
+.recipeButtonsWrapper {
+  display: flex;
+  justify-content: space-between;
 }
 
 .h4_comment {
@@ -419,108 +475,108 @@ textarea {
 
 /* comment */
 .commentContainer {
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    background-color: #FFDAB9!important;
-    margin-top: 10px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  background-color: #FFDAB9 !important;
+  margin-top: 10px;
 }
 
 .commentContainer article {
-    /* margin-left: 10px;
+  /* margin-left: 10px;
     margin-right: 10px;
     margin-bottom: 20px; */
-    margin: 0;
-    background-color: #FFF6ED;
-    width: 100%;
+  margin: 0;
+  background-color: #FFF6ED;
+  width: 100%;
 }
 
 .commentContainer article h1 {
-    font-size: medium;
-    background-color: #FFF6ED;
+  font-size: medium;
+  background-color: #FFF6ED;
 }
 
 .commentContainer article p {
-    font-size: medium;
+  font-size: medium;
 }
 
 
 :focus-visible {
-    outline-color: #B9DEFF;
-    outline-offset: 3px;
-    border-color: #FFDAB9;
-    border-style: solid;
+  outline-color: #B9DEFF;
+  outline-offset: 3px;
+  border-color: #FFDAB9;
+  border-style: solid;
 }
 
 #formRecipe input[type=text],
 #formRecipe textarea {
-    width: 50%;
-    background-color: white;
-    height: 50px;
-    border: transparent;
-    box-shadow: inset 2px 2px 2px grey, 0 -1px 1px white;
-    vertical-align: top;
+  width: 50%;
+  background-color: white;
+  height: 50px;
+  border: transparent;
+  box-shadow: inset 2px 2px 2px grey, 0 -1px 1px white;
+  vertical-align: top;
 }
 
 #formRecipe textarea {
-    height: 70px;
-    resize: none;
-    border: 3px solid transparent;
-    box-shadow: inset 2px 2px 2px grey, 0 -1px 1px white;
-    background-color: white;
-    width: 80%;
+  height: 70px;
+  resize: none;
+  border: 3px solid transparent;
+  box-shadow: inset 2px 2px 2px grey, 0 -1px 1px white;
+  background-color: white;
+  width: 80%;
 }
 
 
 .error {
-    background-color: #FDB9FF;
+  background-color: #FDB9FF;
 }
 
 #formRecipe label {
-    display: inline-block;
-    width: 100px;
-    text-align: right;
+  display: inline-block;
+  width: 100px;
+  text-align: right;
 }
 
 
- .container_buttons {
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    padding-bottom: 10px;
-    margin-bottom: 0;
+.container_buttons {
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+  margin-bottom: 0;
 }
 
 .commentButton {
-    box-shadow: 0px 10px 14px -7px #276873;
-    margin-top: 5px;
-    background-color: #B9DEFF;
-    border-radius: 8px;
-    cursor: pointer;
-    color: black;
-    font-size: 15px;
-    font-weight: bold;
-    padding: 10px 20px;
-    text-decoration: none;
-    border: none;
-    width: 150px;
-} 
+  box-shadow: 0px 10px 14px -7px #276873;
+  margin-top: 5px;
+  background-color: #B9DEFF;
+  border-radius: 8px;
+  cursor: pointer;
+  color: black;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 10px 20px;
+  text-decoration: none;
+  border: none;
+  width: 150px;
+}
 
 .commentButton:hover {
-    background-color: #FFDAB9;
-    color: white;
+  background-color: #FFDAB9;
+  color: white;
 }
 
 .commentButton:active {
-    position: relative;
-    top: 2px;
+  position: relative;
+  top: 2px;
 }
 
 .commentsContainer {
   background-color: #FFDAB9;
   /* margin: 0!important; */
-  margin-left: 0!important;
-  margin-right: 0!important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
   margin-top: 0;
   padding: 10px;
   margin-bottom: 5px;
@@ -536,7 +592,7 @@ textarea {
   justify-content: space-between;
   padding-top: 10px;
   padding-bottom: 10px;
-  font-size:0.7em;
+  font-size: 0.7em;
 }
 
 .commentsWrapper {
