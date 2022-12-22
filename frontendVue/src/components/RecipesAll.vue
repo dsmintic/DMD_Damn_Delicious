@@ -271,4 +271,8 @@ export default defineComponent({
     padding: 10px;
     margin: 0;
 }
+
+.hr {
+    color: peachpuff;
+}
 </style>
