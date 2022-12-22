@@ -135,6 +135,9 @@ export default {
     <article>
       <h1 class="fontbold">{{ recipe.title }}</h1>
       <img :src="`${recipe.imagePath}`">
+      <div class="ratingContainer">
+          <!-- <font-awesome-icon class="star" icon="fa-solid fa-star" v-for="i in getRating(recipe.id)" /> -->
+      </div>
       <h4 class="fontbold">Summary</h4>
       <p class="textfont">{{ recipe.summary }}</p>
 
@@ -239,8 +242,10 @@ export default {
 .container {
   overflow: hidden;
   display: flex;
+  max-width: 70%;
   justify-content: space-around;
   align-items: flex-start;
+  margin: auto;
 }
 
 .container article {
@@ -606,5 +611,9 @@ textarea {
 
 hr {
   border: 2px solid peachpuff;
+}
+
+.ratingContainer {
+  display: flex;
 }
 </style>
