@@ -7,6 +7,8 @@ import org.hibernate.annotations.CreationTimestamp;
 
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "comments")
@@ -32,8 +34,11 @@ public class Comment {
     @Column (name = "update_date", updatable = true)
     private LocalDateTime updateDate;
 
-    public LocalDateTime getCreationDate() {
-        return creationDate;
+    public String getCreationDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy. HH:mm")
+                .withZone(ZoneId.systemDefault());
+
+        return formatter.format(creationDate);
     }
 
     @ManyToOne(optional = false)
@@ -86,8 +91,11 @@ public class Comment {
         this.id = id;
     }
 
-    public LocalDateTime getUpdateDate() {
-        return updateDate;
+    public String getUpdateDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy. HH:mm")
+                .withZone(ZoneId.systemDefault());
+
+        return formatter.format(updateDate);
     }
     public void setUpdateDate(LocalDateTime updateDate) {
         this.updateDate = updateDate;
@@ -114,7 +122,8 @@ public class Comment {
                 ", creationDate=" + creationDate +
                 ", updateDate=" + updateDate +
                 ", user=" + user +
-                ", recipeId=" + recipe.getId() +
+                ", recipe=" + recipe +
                 '}';
     }
 }
+

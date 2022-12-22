@@ -121,7 +121,8 @@ export default defineComponent({
     }
 
     .ingredientLabel {
-        margin-left: 10px;
+        margin-left: 15px;
+        margin-right: 0;
     }
 
     .recipes{
