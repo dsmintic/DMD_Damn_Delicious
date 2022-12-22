@@ -1,9 +1,9 @@
 <template>
     <section class="container">
         <article>
-            <p class="fontbold">Welcome to the DMD Damn Delicius website <br>
+            <h1 class="fontbold">Welcome to the DMD Damn Delicious website <br><br>
 
-                "I cook with wine and sometimes I even add it to the food."</p>
+                "I cook with wine and sometimes I even add it to the food."</h1>
         </article>
 
         <article>
@@ -40,7 +40,7 @@
 }
 
 .fontbold {
-    text-align: left;
+    text-align: center;
     padding: 20px;
     font-weight: 700;
     margin: 0;

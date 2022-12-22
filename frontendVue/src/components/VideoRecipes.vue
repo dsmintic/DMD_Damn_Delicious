@@ -1,5 +1,8 @@
 <template>
+
+<h1 class="title">Once a week, the best rated recipe is published in a video by one of ours chefs.</h1>
     <section class="container">
+        
         <article>
             <h1 class="fontbold">Rainbow eggs</h1>
             <video controls>
@@ -98,6 +101,11 @@
 
 .container article h1 {
     text-align: center;
+}
+
+.title {
+    text-align: center;
+    color: #FF9F68;
 }
 
 .container article video {
