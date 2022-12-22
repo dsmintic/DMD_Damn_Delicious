@@ -29,7 +29,7 @@ const routes = [
   { path:'/chefDamir', name:'Damir', component: ChefDamirView},
   { path:'/addcomment', name:'Add_Comment', component: AddCommentView},
   { path:'/editcomment', name:'Edit_Comment', component: EditCommentView},
-  { path:'/editrecipe', name:'Edit_Recipe', component: EditRecipeView},
+  { path:'/recipe/editrecipe/:id', name:'Edit_Recipe', component: EditRecipeView},
   
 
 

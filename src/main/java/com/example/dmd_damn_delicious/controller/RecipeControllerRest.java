@@ -96,6 +96,11 @@ public class RecipeControllerRest {
                 ingredients.add(ingredientsService.getIngredientById(ingredient.getId()));
             }
             recipe1.setIngredients(ingredients);
+
+            if (!recipe.getImagePath().equals("empty")) {
+                recipe1.setImagePath(recipe.getImagePath());
+            }
+
         return new ResponseEntity<>(recipeService.saveRecipe(recipe1), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);

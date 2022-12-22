@@ -2,11 +2,10 @@
 import { defineComponent } from "vue";
 import { mapStores } from "pinia";
 import { useAuthStore } from "@/store/auth";
-import ErrorMessage from "@/components/ErrorMessage.vue";
+import { useRoute } from 'vue-router';
 
 export default defineComponent({
     name: "RecipeForm",
-    components: { ErrorMessage },
     data() {
         return {
             recipe: {
@@ -16,15 +15,24 @@ export default defineComponent({
                 ingredients: [],
                 imagePath: ''
             },
-            error: null,
-            isLoggedIn: false,
+            id: '',
             ingredients: [],
             checkedIngredients: [],
             image: undefined
         }
     },
     created() {
-        this.fetchIngredients();
+        
+    },
+    async beforeMount() {
+      const route = useRoute();
+      this.id = route.params.id;
+      //let res = await new Promise((resolve, reject) => this.fetchRecipe());
+      this.fetchRecipe();
+      this.fetchIngredients();
+    },
+    mounted() {
+        this.updateCheckedIngredients();
     },
     computed: {
         ...mapStores(useAuthStore),
@@ -34,53 +42,61 @@ export default defineComponent({
             const summaryCheck = this.recipe.summary.length > 0;
             const contentCheck = this.recipe.content.length > 0;
             const ingredientsCheck = this.checkedIngredients.length > 0;
-            const imageCheck = this.image != undefined;
-            console.log(titleCheck && summaryCheck && contentCheck && ingredientsCheck && imageCheck);
-            return titleCheck && summaryCheck && contentCheck && ingredientsCheck && imageCheck;
+            //const imageCheck = this.image != undefined;
+            console.log(titleCheck && summaryCheck && contentCheck && ingredientsCheck);
+            return titleCheck && summaryCheck && contentCheck && ingredientsCheck;
         },
     },
     methods: {
         async addRecipe() {
 
-            const url = `/api/recipes/${this.authStore.id}`;
+            const url = `/api/recipes/${this.id}`;
+
+            this.recipe.ingredients = [];
 
             for (let ingredient of this.checkedIngredients) {
                 this.recipe.ingredients.push({ "id": ingredient });
             }
 
-            this.error = null;
 
             ///////////image stuff
 
-            let formData = new FormData();
+            if (this.image == undefined) {
+                this.recipe.imagePath = "empty";
+            } else {
+                let formData = new FormData();
 
-            formData.append('image', this.image);
+                formData.append('image', this.image);
 
-            await fetch('/api/recipes/upload', {
-                method: 'POST',
-                headers: {
-                    //'Content-Type': 'multipart/form-data'
-                },
-                body: formData
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        return Promise.reject("Page does not exist");
-                    } else {
-                        return response.text();
-                    }
+                await fetch('/api/recipes/upload', {
+                    method: 'POST',
+                    headers: {
+                        //'Content-Type': 'multipart/form-data'
+                    },
+                    body: formData
                 })
-                .then(answer => {
-                    this.recipe.imagePath = answer;
-                })
-                .catch(error => console.log("An error has appered: " + error));
+                    .then(response => {
+                        if (!response.ok) {
+                            return Promise.reject("Page does not exist");
+                        } else {
+                            return response.text();
+                        }
+                    })
+                    .then(answer => {
+                        this.recipe.imagePath = answer;
+                    })
+                    .catch(error => console.log("An error has appered: " + error));
 
-            console.log(this.recipe.imagePath);
+                console.log(this.recipe.imagePath);
+
+            }
+
+            
 
             //////////image end
 
             fetch(url, {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     "Content-Type": "application/json"
                 },
@@ -109,10 +125,40 @@ export default defineComponent({
             fetch('/api/ingredients', {})
                 .then(response => response.json())
                 .then(data => {
-                    console.log('data', data)
+                    //console.log('data', data)
                     this.ingredients = data;
                 })
                 .catch(error => console.log('error', error))
+        },
+        fetchRecipe() {
+            let url = "/api/recipes/" + this.id;
+            fetch(url, {})
+                .then(response => response.json())
+                .then(data => {
+                    this.recipe = data;
+                })
+                .catch(error => console.log('error', error))
+        },
+
+        updateCheckedIngredients() {
+
+            let url = "/api/ingredients/recipe/" + this.id;
+            let tmpIngredients;
+
+            fetch(url, {})
+                .then(response => response.json())
+                .then(data => {
+                    tmpIngredients = data;
+                    console.log(tmpIngredients);
+                    for (let ingredient of tmpIngredients) {
+                        this.checkedIngredients.push(ingredient.id);
+                    }
+                })
+                .catch(error => console.log('error', error))
+
+            console.log(this.recipe.imagePath);
+            console.log(this.recipe);
+
         },
 
         handleFileUpload(e) {
@@ -173,10 +219,9 @@ export default defineComponent({
                 </div>
 
                 <div class="container_buttons">
-                    <p><input class="myButton" type="submit" value="Edit recipe" :disabled="!valid"></p>
+                    <p><input class="myButton" type="submit" value="Save recipe" :disabled="!valid"></p>
                 </div>
             </form>
-            <ErrorMessage v-if="error?.message" :error="error" />
         </article>
     </section>
 
