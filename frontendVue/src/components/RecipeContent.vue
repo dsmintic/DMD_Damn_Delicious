@@ -259,15 +259,6 @@ export default {
   margin-left: 20px;
 }
 
-.container_buttons {
-  overflow: hidden;
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 10px;
-  margin-bottom: 0;
-}
-
-
 .fontbold {
   background-color: peachpuff;
   padding: 20px;
@@ -291,18 +282,6 @@ export default {
   display: inline-block;
   font-size: 16px;
   cursor: pointer;
-}
-
-.green-btn:hover {
-  background-color: #555555;
-}
-
-.red-btn {
-  background-color: #FFB9BB;
-}
-
-.blue-btn {
-  background-color: #00B2CE;
 }
 
 .bottomlinks {
@@ -503,18 +482,6 @@ textarea {
     text-align: right;
 }
 
-.fontbold {
-    background-color: peachpuff;
-    padding: 20px;
-    font-weight: 700;
-    margin: 0;
-}
-
-.textfont {
-    font-weight: 100;
-    padding: 10px;
-    margin: 0;
-}
 
  .container_buttons {
     overflow: hidden;
@@ -578,5 +545,8 @@ textarea {
 .commentButtonsWrapper {
   display: flex;
   justify-content: end;
+}
+hr {
+  border: 2px solid peachpuff;
 }
 </style>
