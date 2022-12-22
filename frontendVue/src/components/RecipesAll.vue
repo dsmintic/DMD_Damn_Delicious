@@ -262,7 +262,7 @@ export default defineComponent({
     margin-right: 10px;
     margin-bottom: 20px;
     flex-basis: 23%;
-    background-color: peachpuff;
+    background-color: #FFF6ED;
 }
 
 .container article h1 {
@@ -277,11 +277,14 @@ export default defineComponent({
 .container article p {
     font-size: medium;
     background-color: #FFF6ED;
-    margin: 0px;
+    /* margin: 0px; */
 }
 
 .created {
-    margin: 0px;
+    margin-right: 5px;
+    margin-top: 0px;
+    margin-bottom: 2px;
+    margin-left: 0px;
     text-align: right;
     background-color: #FFF6ED;
 }
