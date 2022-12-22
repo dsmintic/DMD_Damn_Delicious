@@ -17,6 +17,7 @@ const handleReponse = async (response, store) => {
         persistState(store.isAuthenticated);
         store.username = data.username;
         store.id = data.id;
+        store.admin = data.admin;
         return data;
     } else {
         const error = await response.json();
@@ -33,7 +34,8 @@ export const useAuthStore = defineStore("auth", {
     state: () => ({
         isAuthenticated: localStorage.getItem(LOCAL_STORAGE_KEY_NAME) !== null,
         username: "",
-        id: 0
+        id: 0,
+        admin: false
     }),
     actions: {
         async check() {
@@ -69,6 +71,7 @@ export const useAuthStore = defineStore("auth", {
             this.isAuthenticated = false;
             this.username = "";
             this.id = 0;
+            this.admin = false;
             persistState(this.isAuthenticated);
         },
     },
