@@ -1,9 +1,8 @@
 <template>
 
     <section class="container">
-
         <article>
-            <h1>Mamička the boss</h1>
+            <h1>Marija Mamić</h1>
         </article>
 
         <article>
@@ -23,12 +22,10 @@
   
 <style scoped>
 .container {
-    overflow: hidden;
-    /* display: flex; */
-    /* justify-content: space-between; */
-    /* justify-content: center; */
+    overflow:hidden;
+    display: flex;
+    justify-content: space-between;
     align-items: flex-start;
-
 }
 
 .container article {
@@ -36,45 +33,30 @@
     margin-right: 10px;
     margin-bottom: 20px;
     text-align: left;
+    /* overflow:hidden;
+    display: block; */
 }
 
 .container article img {
     width: 100%;
     display: block;
-    margin: 5px;
-    border: 2px solid black;
+    margin-top: 0px;
+    margin-left: 10px;
+    border: 2px solid #FF9F68;
 }
 
 .container article h1 {
     width: 200px;
-    font-size: 700;
+    font-size:large;
     margin-top: 0px;
     text-align: right;
     color: #FF9F68;
 }
 
 .container article p {
-    font-size: 400;
+    font-size: medium;
     margin-top: 0px;
-    margin-left: 15px;
-    margin-right: 15px;
-}
-
-.container a {
-    margin: 0;
-    padding: 0;
-}
-
-.fontbold {
-    background-color: peachpuff;
-    padding: 20px;
-    font-weight: 700;
-    margin: 0;
-}
-
-.textfont {
-    font-weight: 100;
-    padding: 10px;
-    margin: 0;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 </style>

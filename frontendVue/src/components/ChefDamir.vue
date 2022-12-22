@@ -3,11 +3,11 @@
     <section class="container">
 
         <article>
-            <h1>Lord von Damir Šmintić</h1>
+            <h1>Damir Šmintić</h1>
         </article>
 
         <article>
-            <img src="../images/Damir_chefs.png">
+            <img src="../images/Damir_chefs.png.jpg">
         </article>
 
         <article>
@@ -25,9 +25,8 @@
 <style scoped>
 .container {
     overflow: hidden;
-    /* display: flex; */
-    /* justify-content: space-between; */
-    /* justify-content: center; */
+    display: flex;
+    justify-content: space-between;
     align-items: flex-start;
 
 }
@@ -43,7 +42,7 @@
     width: 100%;
     display: block;
     margin: 5px;
-    border: 2px solid black;
+    border: 2px solid #FF9F68;
 }
 
 .container article h1 {
@@ -55,27 +54,9 @@
 }
 
 .container article p {
-    font-size: 400;
+    font-size: medium;
     margin-top: 0px;
     margin-left: 15px;
     margin-right: 15px;
-}
-
-.container a {
-    margin: 0;
-    padding: 0;
-}
-
-.fontbold {
-    background-color: peachpuff;
-    padding: 20px;
-    font-weight: 700;
-    margin: 0;
-}
-
-.textfont {
-    font-weight: 100;
-    padding: 10px;
-    margin: 0;
 }
 </style>
