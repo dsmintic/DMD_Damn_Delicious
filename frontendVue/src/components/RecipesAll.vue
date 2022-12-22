@@ -66,8 +66,8 @@ export default defineComponent({
             </div>
             <img v-bind:src="recipe.imagePath">
             <p class="textfont">{{ recipe.summary }}</p>
-            <p class="created">Created by: {{ recipe.user.username }}</p>
-            <p class="created">Created on: {{ recipe.creationDate }}</p>
+            <p class="created">Published by: {{ recipe.user.username }}</p>
+            <p class="created">Published on: {{ recipe.creationDate }}</p>
         </article>
 
 

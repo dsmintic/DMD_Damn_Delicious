@@ -80,8 +80,8 @@ export default defineComponent({
 </script>
 
 <template>
-    <h1 class="title">Once a week, the best rated recipe is published in a video by one of ours chefs.</h1>
-    <h2 class="subtitle">Once a week, the best rated recipe is published in a video by one of ours chefs.</h2>
+    <h1 class="title">Are You not sure about your next meal?</h1>
+    <h2 class="subtitle">Check Your ingredients Below and We will find it for You!</h2>
     <section class="container">
 
         <section class="ingredients">
