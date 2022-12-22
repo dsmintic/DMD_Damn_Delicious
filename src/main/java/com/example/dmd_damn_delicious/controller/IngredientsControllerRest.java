@@ -1,27 +1,27 @@
 package com.example.dmd_damn_delicious.controller;
 
 import com.example.dmd_damn_delicious.model.Ingredient;
-import com.example.dmd_damn_delicious.service.FileService;
 import com.example.dmd_damn_delicious.service.IngredientsService;
+import com.example.dmd_damn_delicious.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api")
 public class IngredientsControllerRest {
 
     private final IngredientsService ingredientsService;
+    private final RecipeService recipeService;
 
     @Autowired
-    public IngredientsControllerRest(IngredientsService ingredientsService) {
+    public IngredientsControllerRest(IngredientsService ingredientsService, RecipeService recipeService) {
         this.ingredientsService = ingredientsService;
+        this.recipeService = recipeService;
     }
 
     @PostMapping("/ingredients")
@@ -56,6 +56,17 @@ public class IngredientsControllerRest {
 
         if(ingredient != null) {
             return new ResponseEntity<>(ingredient, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/ingredients/recipe/{id}")
+    public ResponseEntity<Set<Ingredient>> getIngredientByRecipeId(@PathVariable("id") long id) {
+        //method to return tutorial by id from database
+        Set<Ingredient> ingredients = recipeService.getRecipeById(id).getIngredients();
+
+        if(!ingredients.isEmpty()) {
+            return new ResponseEntity<>(ingredients, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

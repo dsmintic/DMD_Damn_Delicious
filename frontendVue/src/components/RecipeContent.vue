@@ -125,7 +125,8 @@ export default {
 
       <p class="textfont">{{ recipe.content }}</p>
       <div v-if="authStore.isAuthenticated">
-        <a class="myButton" href="#" v-if="authStore.isAuthenticated && authStore.id == recipe.user.id || authStore.admin">Edit Recipe</a>
+        <router-link class="myButton" v-if="authStore.isAuthenticated && authStore.id == recipe.user.id || authStore.admin" :to="`editrecipe/${recipe.id}`">Edit Recipe</router-link>
+        <!-- <a class="myButton" href="#" v-if="authStore.isAuthenticated && authStore.id == recipe.user.id || authStore.admin">Edit Recipe</a> -->
       </div>
 
       <hr>
