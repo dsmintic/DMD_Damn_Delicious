@@ -46,6 +46,7 @@ export default defineComponent({
 </template>
 
 <style>
+
 .container {
     margin: 0;
     padding: 0;

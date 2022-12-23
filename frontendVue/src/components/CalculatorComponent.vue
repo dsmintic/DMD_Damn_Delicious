@@ -97,7 +97,7 @@ export default defineComponent({
             <article v-for="recipe of recipes">
                 <h1 class="titlecolor"><router-link :to="`recipe/${recipe.id}`">{{ recipe.title }}</router-link></h1>
                 <img v-bind:src="recipe.imagePath">
-                <p class="textfont">{{ recipe.content }}</p>
+                <p class="textfont">{{ recipe.summary }}</p>
                 <p class="created">Published by: {{ recipe.user.username }}</p>
                 <p class="created">Published on: {{ recipe.creationDate }}</p>
             </article>
@@ -126,7 +126,7 @@ h1 {
 }
 
 .ingredientLabel {
-    margin-left: 15px;
+    margin-left: 19px;
     margin-right: 0;
 }
 

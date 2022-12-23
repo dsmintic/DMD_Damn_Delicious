@@ -20,7 +20,7 @@ export default defineComponent({
   methods: {
     login() {
       this.authStore.login(this.user)
-        .then(() => this.$router.push({ name: 'Home' }))
+        .then(() => this.$router.push({ name: 'Recipes' }))
         .catch(error => this.error = { message: "Login failed." })
     },
   },

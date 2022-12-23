@@ -138,6 +138,15 @@ export default {
       this.showEditChange(index);
 
     },
+
+    async deleteRecipe() {
+      let url = "/api/recipes/" + this.id;
+
+      let response1 = await fetch(url, { method: 'DELETE' })
+        .catch(error => console.log('error', error));
+
+        this.$router.push({ name: 'Recipes' })
+    },
     scrollToTop() {
       window.scrollTo(0,0);
     },
@@ -194,9 +203,12 @@ export default {
         <!-- <a class="myButton" href="#" v-if="authStore.isAuthenticated && authStore.id == recipe.user.id || authStore.admin">Edit Recipe</a> -->
 
 
-        <router-link class="myButton_del"
+        <!-- <RouterLink class="myButton_del"
           v-if="authStore.isAuthenticated && authStore.id == recipe.user.id || authStore.admin"
-          :to="`editrecipe/${recipe.id}`">Delete Recipe</router-link>
+          :to="`editrecipe/${recipe.id}`">Delete Recipe</RouterLink> -->
+
+          <button class="myButton_del1"
+          v-if="authStore.isAuthenticated && authStore.id == recipe.user.id || authStore.admin" @click="deleteRecipe">Delete Recipe</button>
       </div>
 
       <hr>
@@ -204,7 +216,7 @@ export default {
         <h4 class="h4_comment">Comments</h4>
         <div class="commentsWrapper">
           <article class="commentsContainer" v-for="(comment, index) in comments">
-            <p>{{ comment.text }}</p>
+            <p><span v-bind:innerHTML="comment.text"></span></p>
             <div class="commentPostedWrapper">
               <small>Posted on: {{ comment.creationDate }}</small>
               <small>Posted by: {{ comment.user.username }}</small>
@@ -414,12 +426,37 @@ textarea {
   text-decoration: none;
 }
 
+.myButton_del1 {
+  box-shadow: 0px 10px 14px -7px #276873;
+  margin-top: 5px;
+  background-color: #FFB9BB;
+  border-radius: 8px;
+  display: inline-block;
+  cursor: pointer;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px 8px;
+  text-decoration: none;
+  border: none;
+}
+
 .myButton_del:hover {
   background-color: #FF9F68;
   color: white;
 }
 
+.myButton_del1:hover {
+  background-color: #FF9F68;
+  color: white;
+}
+
 .myButton_del:active {
+  position: relative;
+  top: 2px;
+}
+
+.myButton_del1:active {
   position: relative;
   top: 2px;
 }
