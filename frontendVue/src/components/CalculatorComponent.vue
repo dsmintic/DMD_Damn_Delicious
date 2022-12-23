@@ -146,7 +146,7 @@ fieldset {
 
 .recipes article {
     margin-left: 10px;
-    margin-right: 10px;
+    margin-right: 22px;
     margin-bottom: 10px;
     flex-basis: 23%;
     background-color: #FFF6ED;
