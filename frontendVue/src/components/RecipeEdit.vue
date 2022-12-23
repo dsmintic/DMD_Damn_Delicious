@@ -32,6 +32,7 @@ export default defineComponent({
       this.fetchIngredients();
     },
     mounted() {
+        
         this.updateCheckedIngredients();
     },
     computed: {
